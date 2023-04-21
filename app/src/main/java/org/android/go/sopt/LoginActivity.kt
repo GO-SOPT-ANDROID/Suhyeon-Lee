@@ -9,6 +9,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
+import org.android.go.sopt.RecyclerView.RvPracActivity
 import org.android.go.sopt.databinding.ActivityLoginBinding
 import org.android.go.sopt.databinding.ActivityMainBinding
 
@@ -38,10 +39,12 @@ class LoginActivity : AppCompatActivity() {
                     Snackbar.make(it, "invalid", Snackbar.LENGTH_SHORT).show()
                 }
                 else {
-                    val intent = Intent(this@LoginActivity, MyInfoActivity::class.java)
-                    intent.putExtra("name", name)
-                    intent.putExtra("hobby", hobby)
-                    Toast.makeText(applicationContext, "로그인 성공!", Toast.LENGTH_SHORT).show()
+                    //val intent = Intent(this@LoginActivity, MyInfoActivity::class.java)
+                    //intent.putExtra("name", name)
+                    //intent.putExtra("hobby", hobby)
+                    //Toast.makeText(applicationContext, "로그인 성공!", Toast.LENGTH_SHORT).show()
+                    //startActivity(intent)
+                    val intent = Intent(this@LoginActivity, RvPracActivity::class.java)
                     startActivity(intent)
                 }
 
