@@ -1,10 +1,10 @@
-package org.android.go.sopt.RecyclerView
+package org.android.go.sopt.Home.RecyclerView
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import org.android.go.sopt.RecyclerView.Data.DataModel
-import org.android.go.sopt.RecyclerView.Data.ViewType
+import org.android.go.sopt.Home.Model.DataModel
+import org.android.go.sopt.Home.Model.ViewType
 import org.android.go.sopt.databinding.ItemRvHeaderBinding
 import org.android.go.sopt.databinding.ItemRvProfileBinding
 

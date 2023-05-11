@@ -1,7 +1,8 @@
-package org.android.go.sopt.RecyclerView
+package org.android.go.sopt.Home.RecyclerView
 
 import androidx.recyclerview.widget.RecyclerView
-import org.android.go.sopt.RecyclerView.Data.DataModel
+import org.android.go.sopt.Home.Model.DataModel
+import org.android.go.sopt.Home.ViewObject
 import org.android.go.sopt.databinding.ItemRvHeaderBinding
 
 class ViewHolderHeader(private val binding: ItemRvHeaderBinding) :

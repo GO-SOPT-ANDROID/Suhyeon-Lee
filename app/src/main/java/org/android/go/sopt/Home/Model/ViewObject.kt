@@ -1,4 +1,4 @@
-package org.android.go.sopt.RecyclerView
+package org.android.go.sopt.Home
 
 sealed class ViewObject {
     data class Header(

@@ -93,7 +93,7 @@
         />
 
     <EditText
-        android:id="@+id/et_hobby"
+        android:id="@+id/et_skill"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/tv_hobby"
@@ -106,7 +106,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="회원가입 완료!"
-        app:layout_constraintTop_toBottomOf="@id/et_hobby"
+        app:layout_constraintTop_toBottomOf="@id/et_skill"
         android:layout_marginTop="50dp"
         />
 

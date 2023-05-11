@@ -1,24 +1,25 @@
-package org.android.go.sopt.RecyclerView
+package org.android.go.sopt.Home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import org.android.go.sopt.RecyclerView.Data.DataModel
-import org.android.go.sopt.RecyclerView.Data.ViewType
-import org.android.go.sopt.databinding.ActivityRvPracBinding
+import org.android.go.sopt.Home.Model.DataModel
+import org.android.go.sopt.Home.Model.ViewType
+import org.android.go.sopt.Home.RecyclerView.MultiViewAdapter
+import org.android.go.sopt.databinding.ActivityHomeBinding
 
-class RvPracActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityRvPracBinding
+class HomeActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityRvPracBinding.inflate(layoutInflater)
+        binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initView()
     }
 
     private fun initView() {
-        binding.rv.layoutManager = LinearLayoutManager(this@RvPracActivity)
+        binding.rv.layoutManager = LinearLayoutManager(this@HomeActivity)
         binding.rv.adapter = MultiViewAdapter(getList())
     }
 
