@@ -14,8 +14,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnLogin.setOnClickListener {
-            binding.tvHello.text = "forking"
-            Snackbar.make(binding.root, "우상욱 멍청이", Snackbar.LENGTH_SHORT).show()
+            binding.tvHello.text = "."
+            Snackbar.make(binding.root, "하하", Snackbar.LENGTH_SHORT).show()
         }
     }
 }
