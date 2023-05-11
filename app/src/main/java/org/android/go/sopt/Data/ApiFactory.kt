@@ -6,7 +6,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import org.android.go.sopt.BuildConfig
 import retrofit2.Retrofit
 
-object ApiFactory {
+object ApiFactorySopt {
     private const val SOPT_URL = BuildConfig.SOPT_SERVER_URL
 
     val retrofit: Retrofit by lazy {
@@ -19,6 +19,20 @@ object ApiFactory {
     inline fun <reified T> create(): T = retrofit.create<T>(T::class.java)
 }
 
+object ApiFactoryReqres {
+    private const val REQRES_URL = BuildConfig.REQRES_BASE_URL
+
+    val retrofit: Retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl(REQRES_URL)
+            .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+            .build()
+    }
+
+    inline fun <reified T> create(): T = retrofit.create<T>(T::class.java)
+}
+
 object SrvcPool {
-    val signUpSrvc = ApiFactory.create<SignUpSrvc>()
+    val soptSrvc = ApiFactorySopt.create<SrvcInterface>()
+    val reqresSrvc = ApiFactoryReqres.create<SrvcInterface>()
 }

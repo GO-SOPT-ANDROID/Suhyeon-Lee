@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import org.android.go.sopt.Data.Model.ReqSignUpDto
@@ -16,7 +15,7 @@ import retrofit2.Response
 
 class SignupActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
-    private val signUpSrvc = SrvcPool.signUpSrvc
+    private val signUpSrvc = SrvcPool.soptSrvc
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +42,7 @@ class SignupActivity : AppCompatActivity() {
         }
     }
 
-    /*
+
     private fun completeSignUp() {
         signUpSrvc.signUp(
             with(binding) {
@@ -70,48 +69,17 @@ class SignupActivity : AppCompatActivity() {
             }
 
         })
-    }*/
-
-    private fun completeSignUp() {
-        signUpSrvc.signUp(
-            with(binding) {
-                ReqSignUpDto(
-                    etId.text.toString(),
-                    etPw.text.toString(),
-                    etName.text.toString(),
-                    etSkill.text.toString()
-                )
-            }
-        ).enqueue(object : retrofit2.Callback<ResSignUpDto> {
-            override fun onResponse(
-                call: Call<ResSignUpDto>,
-                response: Response<ResSignUpDto>,
-            ) {
-                if (response.isSuccessful) {
-                    response.body()?.message?.let { Log.e("AHOI", "서버통신 성공") }
-                    goBackToLoginActivity()
-                } else {
-                    // 실패한 응답
-                    response.body()?.message?.let { Log.e("AHOI", "서버통신 실패(40X)") }
-                }
-            }
-
-            override fun onFailure(call: Call<ResSignUpDto>, t: Throwable) {
-                // 왜 안 오노
-                t.message?.let { Log.e("AHOI", "서버통신 실패(응답값 X)") }
-            }
-        })
     }
 
-    private fun goBackToLoginActivity() {
-        val intent = Intent(this@SignupActivity, LoginActivity::class.java)
-        with(binding) {
-            intent.putExtra("id", etId.text.toString())
-            intent.putExtra("pw", etPw.text.toString())
-            intent.putExtra("name", etName.text.toString())
-            intent.putExtra("skill", etSkill.text.toString())
-        }
-        setResult(RESULT_OK, intent)
-        finish()
+private fun goBackToLoginActivity() {
+    val intent = Intent(this@SignupActivity, LoginActivity::class.java)
+    with(binding) {
+        intent.putExtra("id", etId.text.toString())
+        intent.putExtra("pw", etPw.text.toString())
+        intent.putExtra("name", etName.text.toString())
+        intent.putExtra("skill", etSkill.text.toString())
     }
+    setResult(RESULT_OK, intent)
+    finish()
+}
 }
