@@ -22,11 +22,9 @@ class HomeAdapter(private val userList: List<ResUsersDto.Data>) :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        Log.e("TWOSOME", "PLEASE? ${position}")
         val curItem = userList[position]
-
         with((holder as HomeViewHolder).binding) {
-            tvName.text = curItem.firstName + curItem.lastName
+            tvName.text = curItem.firstName + " " + curItem.lastName
             tvEmail.text = curItem.email
             ivProfile.load(curItem.avatar)
         }
