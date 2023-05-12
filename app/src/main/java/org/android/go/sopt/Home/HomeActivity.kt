@@ -2,91 +2,43 @@ package org.android.go.sopt.Home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
-import org.android.go.sopt.Home.Model.DataModel
-import org.android.go.sopt.Home.Model.ViewType
-import org.android.go.sopt.Home.RecyclerView.MultiViewAdapter
+import android.util.Log
+import android.widget.Toast
+import org.android.go.sopt.Data.Model.ResUsersDto
+import org.android.go.sopt.Data.SrvcPool
+import org.android.go.sopt.Home.RecyclerView.HomeAdapter
 import org.android.go.sopt.databinding.ActivityHomeBinding
+import retrofit2.Call
+import retrofit2.Response
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
+    private val listUsersSrvc = SrvcPool.reqresSrvc
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        initView()
+        getList()
     }
 
-    private fun initView() {
-        binding.rv.layoutManager = LinearLayoutManager(this@HomeActivity)
-        binding.rv.adapter = MultiViewAdapter(getList())
-    }
+    private fun getList() {
+        listUsersSrvc.listUsers()
+            .enqueue(object: retrofit2.Callback<ResUsersDto> {
+            override fun onResponse(call: Call<ResUsersDto>, response: Response<ResUsersDto>) {
+                if (response.isSuccessful) {
+                    //여기부터 해야댐 리스트 만들고 adapter에 뿌려줘야 돼, 근데 어댑터도 바꿔야겠지
+                    Log.d("TWOSOME2", response.body()?.data.toString())
+                    binding.rv.adapter = HomeAdapter(response.body()?.data!!)
+                }
+                else { // 서버통신 실패(40X)
+                    Toast.makeText(applicationContext, "서버통신 실패(40X)", Toast.LENGTH_SHORT).show()
+                }
+            }
 
-    private fun getList(): ArrayList<DataModel> {
-        return arrayListOf(
-            DataModel(
-                ViewType.HEADER.ordinal, ViewObject.Header("I love Sopt!")
-            ),
-            DataModel(
-                ViewType.PROFILE.ordinal, ViewObject.Profile(
-                    "Judy", "I don't like coding.."
-                )
-            ),
-            DataModel(
-                ViewType.PROFILE.ordinal, ViewObject.Profile(
-                    "Nick", "I like coding.."
-                )
-            ),
-            DataModel(
-                ViewType.HEADER.ordinal, ViewObject.Header("Have a good day!")
-            ),
-            DataModel(
-                ViewType.PROFILE.ordinal, ViewObject.Profile(
-                    "Brendy", "I am tired but not tired.."
-                )
-            ),
-            DataModel(
-                ViewType.HEADER.ordinal, ViewObject.Header("I am Korean!")
-            ),
-            DataModel(
-                ViewType.PROFILE.ordinal, ViewObject.Profile(
-                    "Jimin", "I don't like exams!"
-                )
-            ),
-            DataModel(
-                ViewType.HEADER.ordinal, ViewObject.Header("I love Korea!")
-            ),
-            DataModel(
-                ViewType.PROFILE.ordinal, ViewObject.Profile(
-                    "Somi", "I like cotton, it is soft!"
-                )
-            ),
-            DataModel(
-                ViewType.PROFILE.ordinal, ViewObject.Profile(
-                    "Apple", "I like cotton, it is soft!"
-                )
-            ),
-            DataModel(
-                ViewType.PROFILE.ordinal, ViewObject.Profile(
-                    "Banana", "I like cotton, it is soft!"
-                )
-            ),
-            DataModel(
-                ViewType.PROFILE.ordinal, ViewObject.Profile(
-                    "Candy", "I like cotton, it is soft!"
-                )
-            ),
-            DataModel(
-                ViewType.PROFILE.ordinal, ViewObject.Profile(
-                    "Doremi", "I like cotton, it is soft!"
-                )
-            ),
-            DataModel(
-                ViewType.PROFILE.ordinal, ViewObject.Profile(
-                    "Eagle", "I like cotton, it is soft!"
-                )
-            )
-        )
+            override fun onFailure(call: Call<ResUsersDto>, t: Throwable) { // 서버통신 실패(응답값 X)
+                Toast.makeText(applicationContext, "서버통신 실패(응답값 X)", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }
