@@ -6,7 +6,6 @@ import android.util.Log
 import android.widget.Toast
 import org.android.go.sopt.Data.Model.ResUsersDto
 import org.android.go.sopt.Data.SrvcPool
-import org.android.go.sopt.Home.RecyclerView.HomeAdapter
 import org.android.go.sopt.databinding.ActivityHomeBinding
 import retrofit2.Call
 import retrofit2.Response

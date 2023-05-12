@@ -1,4 +1,4 @@
-package org.android.go.sopt.Home.RecyclerView
+package org.android.go.sopt.Home
 
 import android.util.Log
 import android.view.LayoutInflater

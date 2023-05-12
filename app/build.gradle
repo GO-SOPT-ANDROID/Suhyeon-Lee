@@ -66,4 +66,8 @@ dependencies {
 
     // Coil
     implementation("io.coil-kt:coil:2.3.0")
+
+    // by viewModels() 이용해 viewModel 생성하기
+    implementation 'androidx.activity:activity-ktx:1.7.1'
+    implementation 'androidx.fragment:fragment-ktx:1.5.7'
 }
