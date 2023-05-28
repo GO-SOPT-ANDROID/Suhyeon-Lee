@@ -12,6 +12,7 @@ import org.android.go.sopt.util.showLoadingDialog
 
 class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private val homeVm: HomeViewModel by viewModels()
+    private val homeAdapter = HomeAdapter()
     private lateinit var dialog: Dialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -22,14 +23,14 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     }
 
     private fun registerObserver() {
-        homeVm.listUsersResult.observe(viewLifecycleOwner) {
-            binding.rv.adapter = HomeAdapter(homeVm.listUsersResult.value!!)
-        }
-
         homeVm.dialogFlag.observe(viewLifecycleOwner) {
             Log.d("ABC", "dialog became $it")
             if (it) requireActivity().showLoadingDialog(dialog, "Loading data...")
             else dialog.cancel()
+        }
+
+        homeVm.listUsersResult.observe(viewLifecycleOwner) {
+            homeAdapter.submitList(it)
         }
     }
 
@@ -37,5 +38,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         dialog = Dialog(requireContext())
         homeVm.setDialogFlag(true)
         homeVm.listUsers()
+        binding.rv.adapter = homeAdapter
     }
 }

@@ -24,28 +24,10 @@ class HomeViewModel : ViewModel() {
         soptSrvc.listUsers().enqueueUtil(
             { res ->
                 _listUsersResult.value = res.data
-                Log.d("ABC", "LOADING DATA FINISHED!")
                 _dialogFlag.value = false
             },
             { Log.e("ABC", "서버통신 실패(40X)") }
         )
-        /*
-        soptSrvc.listUsers()
-            .enqueue(object: retrofit2.Callback<ResUsersDto> {
-                override fun onResponse(call: Call<ResUsersDto>, response: Response<ResUsersDto>) {
-                    if (response.isSuccessful) {
-                        _listUsersResult.value = response.body()?.data
-                    }
-                    else { // 서버통신 실패(40X)
-                        Log.e("TWOSOME", "서버통신 실패(40X)")
-                    }
-                }
-
-                override fun onFailure(call: Call<ResUsersDto>, t: Throwable) { // 서버통신 실패(응답값 X)
-                    Log.e("TWOSOME", "서버통신 실패(응답값 X)")
-                }
-            })
-         */
     }
 
     fun setDialogFlag(b: Boolean) {
