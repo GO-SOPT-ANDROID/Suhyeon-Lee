@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.util.Log
+import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.IdRes
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import com.google.android.material.snackbar.Snackbar
 import org.android.go.sopt.databinding.DialogLoadingBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -65,6 +67,10 @@ fun Activity.showLoadingDialog(dialog: Dialog, s: String) {
     dialog.show()
 }
 
-fun Context.makeToast(msg: String) {
+fun Context.showToast(msg: String) {
     Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+}
+
+fun showSnackbar(v: View, s: String) {
+    Snackbar.make(v, s, Snackbar.LENGTH_SHORT).show()
 }

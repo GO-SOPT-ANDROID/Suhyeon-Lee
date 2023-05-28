@@ -3,21 +3,15 @@ package org.android.go.sopt.presentation.login
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import com.google.android.material.snackbar.Snackbar
 import org.android.go.sopt.R
-import org.android.go.sopt.data.model.ReqLogInDto
-import org.android.go.sopt.data.model.ResLogInDto
 import org.android.go.sopt.databinding.ActivityLoginBinding
 import org.android.go.sopt.presentation.join.JoinActivity
 import org.android.go.sopt.presentation.main.MainActivity
-import org.android.go.sopt.presentation.main.home.HomeViewModel
 import org.android.go.sopt.util.BindingActivity
-import retrofit2.Call
-import retrofit2.Response
+import org.android.go.sopt.util.showSnackbar
 
 class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_login) {
     private val loginVm: LoginViewModel by viewModels()
@@ -48,9 +42,8 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     private fun onClickLogin() {
         with(binding) {
             if (etId.text.isBlank() || etPw.text.isBlank()) {
-                Snackbar.make(this.root, "Invalid ID or Password", Snackbar.LENGTH_SHORT).show()
-            }
-            else loginVm.login(applicationContext, etId.text.toString(), etPw.text.toString())
+                showSnackbar(this.root, "ID 또는 PW를 다시 확인해주세요.")
+            } else loginVm.login(applicationContext, etId.text.toString(), etPw.text.toString())
         }
     }
 

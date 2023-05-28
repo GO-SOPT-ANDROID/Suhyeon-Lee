@@ -15,7 +15,7 @@ import retrofit2.http.Part
 
 interface SrvcInterface {
     @POST("sign-up")
-    fun signUp(
+    fun join(
         @Body req: ReqJoinDto
     ): Call<ResJoinDto>
 

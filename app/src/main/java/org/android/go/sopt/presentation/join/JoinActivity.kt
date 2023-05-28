@@ -2,14 +2,13 @@ package org.android.go.sopt.presentation.join
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
-import com.google.android.material.snackbar.Snackbar
 import org.android.go.sopt.R
 import org.android.go.sopt.databinding.ActivityJoinBinding
 import org.android.go.sopt.presentation.login.LoginActivity
 import org.android.go.sopt.util.BindingActivity
-import org.android.go.sopt.util.makeToast
+import org.android.go.sopt.util.showSnackbar
+import org.android.go.sopt.util.showToast
 
 class JoinActivity : BindingActivity<ActivityJoinBinding>(R.layout.activity_join) {
     private val signUpVm by viewModels<JoinViewModel>()
@@ -26,23 +25,22 @@ class JoinActivity : BindingActivity<ActivityJoinBinding>(R.layout.activity_join
         }
 
         signUpVm.joinResult.observe(this) {
-            this.makeToast("회원가입 성공!")
+            this.showToast("회원가입 성공!")
             goBackToLoginActivity()
         }
     }
 
     private fun clickSignUpBtn() {
         with(binding) {
-            if (etId.text.isBlank() || etPw.text.isBlank() ||
-                etName.text.isBlank() || etSkill.text.isBlank())
-                Snackbar.make(this.root, "입력하지 않은 정보가 있습니다", Snackbar.LENGTH_SHORT).show()
+            if (etId.text.isBlank()) showSnackbar(this.root, "ID를 입력하세요.")
+            else if (etPw.text.isBlank()) showSnackbar(this.root, "PW를 입력하세요.")
+            else if (etName.text.isBlank()) showSnackbar(this.root, "이름을 입력하세요.")
+            else if (etSkill.text.isBlank()) showSnackbar(this.root, "특기를 입력하세요.")
             else if (etId.length() < 6 || 10 < etId.length()) {
-                Snackbar.make(this.root, "올바른 아이디를 입력해주십쇼", Snackbar.LENGTH_SHORT).show()
-            }
-            else if (etPw.length() < 8 || 12 < etPw.length()) {
-                Snackbar.make(this.root, "올바른 비밀번호를 입력해주십쇼", Snackbar.LENGTH_SHORT).show()
-            }
-            else completeSignUp()
+                showSnackbar(this.root, "ID는 6~10자여야 합니다.")
+            } else if (etPw.length() < 8 || 12 < etPw.length()) {
+                showSnackbar(this.root, "PW는 8~12자여야 합니다.")
+            } else completeSignUp()
         }
     }
 
@@ -50,6 +48,7 @@ class JoinActivity : BindingActivity<ActivityJoinBinding>(R.layout.activity_join
     private fun completeSignUp() {
         with(binding) {
             signUpVm.join(
+                applicationContext,
                 etId.text.toString(), etPw.text.toString(),
                 etName.text.toString(), etSkill.text.toString()
             )

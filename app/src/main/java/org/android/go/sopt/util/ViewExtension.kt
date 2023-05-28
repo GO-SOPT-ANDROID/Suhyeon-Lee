@@ -5,6 +5,7 @@ import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 
 fun RecyclerView.setDivider(@DrawableRes drawableRes: Int) {
     val divider = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)

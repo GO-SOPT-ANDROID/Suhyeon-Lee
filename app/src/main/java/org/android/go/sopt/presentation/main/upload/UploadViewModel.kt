@@ -7,7 +7,7 @@ import org.android.go.sopt.data.SrvcPool
 import org.android.go.sopt.presentation.main.MainViewModel
 import org.android.go.sopt.util.ContentUriRequestBody
 import org.android.go.sopt.util.enqueueUtil
-import org.android.go.sopt.util.makeToast
+import org.android.go.sopt.util.showToast
 
 class UploadViewModel : ViewModel() {
     private val soptSrvc = SrvcPool.soptSrvc
@@ -15,7 +15,7 @@ class UploadViewModel : ViewModel() {
 
     fun uploadImg(context: Context, mainVm: MainViewModel) {
         if (imgReqBodys.size == 0)
-            context.makeToast("Please select images first.")
+            context.showToast("Please select images first.")
         else {
             var resSucCnt = 0 // successful response의 개수
             for (i in 0 until imgReqBodys.size) {
@@ -24,12 +24,12 @@ class UploadViewModel : ViewModel() {
                         Log.d("ABC", "Img ${i + 1} is successfully uploaded to the server.")
                         resSucCnt++
                         if (resSucCnt == imgReqBodys.size - 1) {
-                            context.makeToast("Imgs are successfully uploaded to the server.")
+                            context.showToast("Imgs are successfully uploaded to the server.")
                             mainVm.setDialogFlag(false)
                         }
                     },
                     {
-                        context.makeToast("You've failed to upload ${i+1}th img")
+                        context.showToast("You've failed to upload ${i+1}th img")
                     }
                 )
             }
