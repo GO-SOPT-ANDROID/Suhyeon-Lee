@@ -57,5 +57,6 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
                 else -> return@setOnItemSelectedListener false
             }
         }
+        binding.btnv.selectedItemId = R.id.btnv_home
     }
 }

@@ -16,9 +16,17 @@ class HomeViewModel : ViewModel() {
     private val _listUsersResult: MutableLiveData<List<ResUsersDto.Data>> = MutableLiveData()
     val listUsersResult: LiveData<List<ResUsersDto.Data>> = _listUsersResult
 
+    // true -> show dialog, false -> close dialog
+    private val _dialogFlag: MutableLiveData<Boolean> = MutableLiveData(false)
+    val dialogFlag: LiveData<Boolean> = _dialogFlag
+
     fun listUsers() {
         soptSrvc.listUsers().enqueueUtil(
-            { res -> _listUsersResult.value = res.data },
+            { res ->
+                _listUsersResult.value = res.data
+                Log.d("ABC", "LOADING DATA FINISHED!")
+                _dialogFlag.value = false
+            },
             { Log.e("ABC", "서버통신 실패(40X)") }
         )
         /*
@@ -40,4 +48,7 @@ class HomeViewModel : ViewModel() {
          */
     }
 
+    fun setDialogFlag(b: Boolean) {
+        _dialogFlag.value = b
+    }
 }

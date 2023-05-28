@@ -1,11 +1,16 @@
 package org.android.go.sopt.util
 
+import android.app.Activity
+import android.app.Dialog
 import android.util.Log
+import android.view.WindowManager
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import org.android.go.sopt.databinding.DialogLoadingBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,4 +48,16 @@ inline fun <reified T : Fragment> AppCompatActivity.navigateTo(
         action()
         setReorderingAllowed(true)
     }
+}
+
+fun Activity.showLoadingDialog(dialog: Dialog, s: String) {
+    val binding = DialogLoadingBinding.inflate(layoutInflater)
+    dialog.setContentView(binding.root)
+    dialog.setCancelable(false)
+    binding.tvContent.text = s
+    val params: WindowManager.LayoutParams = dialog.window?.attributes!!
+    params.width = WindowManager.LayoutParams.MATCH_PARENT
+    params.height = WindowManager.LayoutParams.WRAP_CONTENT
+    dialog.window?.attributes = params
+    dialog.show()
 }
