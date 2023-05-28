@@ -11,21 +11,27 @@ import org.android.go.sopt.util.makeToast
 
 class UploadViewModel : ViewModel() {
     private val soptSrvc = SrvcPool.soptSrvc
-    var imgReqBody: ContentUriRequestBody? = null
+    var imgReqBodys: MutableList<ContentUriRequestBody> = mutableListOf()
 
     fun uploadImg(context: Context, mainVm: MainViewModel) {
-        if (imgReqBody == null) Log.e("ABC", "아직 사진이 등록되지 않았다구")
+        if (imgReqBodys.size == 0)
+            context.makeToast("Please select images first.")
         else {
-            soptSrvc.uploadImage(imgReqBody!!.toFormData()).enqueueUtil(
-                {
-                    context.makeToast("Your img was successfully uploaded to the server.")
-                    mainVm.setDialogFlag(false)
-                },
-                {
-                    context.makeToast("You've failed to upload the img to the server.")
-                    mainVm.setDialogFlag(false)
-                }
-            )
+            for (i in 0 until imgReqBodys.size) {
+                soptSrvc.uploadImage(imgReqBodys[i].toFormData()).enqueueUtil(
+                    {
+                        Log.d("ABC", "Img ${i + 1} is successfully uploaded to the server.")
+                        if (i == imgReqBodys.size - 1) {
+                            context.makeToast("Imgs are successfully uploaded to the server.")
+                            mainVm.setDialogFlag(false)
+                        }
+                    },
+                    {
+                        context.makeToast("You've failed to upload the img to the server.")
+                        mainVm.setDialogFlag(false)
+                    }
+                )
+            }
         }
     }
 }

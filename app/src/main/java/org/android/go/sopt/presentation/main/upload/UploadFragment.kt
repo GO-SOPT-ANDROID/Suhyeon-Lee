@@ -20,12 +20,6 @@ class UploadFragment : BindingFragment<FragmentUploadBinding>(R.layout.fragment_
     private val mainVm: MainViewModel by activityViewModels()
     private val uploadVm: UploadViewModel by viewModels()
 
-    private val getImgLauncher =
-        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-            binding.iv1.load(uri)
-            uploadVm.imgReqBody = ContentUriRequestBody(requireContext(), uri!!)
-        }
-
     private val getSeveralImgsLauncher =
         registerForActivityResult(ActivityResultContracts.PickMultipleVisualMedia(maxItems = 3)) {
             for (i in 0..it.size - 1) {
@@ -34,6 +28,8 @@ class UploadFragment : BindingFragment<FragmentUploadBinding>(R.layout.fragment_
                     Log.d("ABC", "${it[i]} in i-th image view!")
                     childView.load(it[i])
                 }
+
+                uploadVm.imgReqBodys.add(ContentUriRequestBody(requireContext(), it[i]))
             }
         }
 
@@ -45,11 +41,6 @@ class UploadFragment : BindingFragment<FragmentUploadBinding>(R.layout.fragment_
 
     private fun registerClickEvents() {
         binding.btnSelectPhoto.setOnClickListener {
-            /*
-            getImgLauncher.launch(
-                PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageAndVideo)
-            )
-            */
             getSeveralImgsLauncher.launch(
                 PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageAndVideo)
             )
