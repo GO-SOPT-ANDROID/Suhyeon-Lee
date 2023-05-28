@@ -5,17 +5,20 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import com.google.android.material.snackbar.Snackbar
 import org.android.go.sopt.Data.Model.ReqSignUpDto
 import org.android.go.sopt.Data.Model.ResSignUpDto
 import org.android.go.sopt.Data.SrvcPool
+import org.android.go.sopt.Home.HomeViewModel
 import org.android.go.sopt.databinding.ActivitySignupBinding
 import retrofit2.Call
 import retrofit2.Response
 
 class SignupActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
-    private val signUpSrvc = SrvcPool.soptSrvc
+    //private val signUpSrvc = SrvcPool.soptSrvc
+    private val signUpVm by viewModels<SignupViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +27,11 @@ class SignupActivity : AppCompatActivity() {
 
         binding.btnSignup.setOnClickListener {
             clickSignUpBtn()
+        }
+
+        signUpVm.signUpResult.observe(this) {
+            Toast.makeText(applicationContext, "회원가입 성공!", Toast.LENGTH_SHORT).show()
+            goBackToLoginActivity()
         }
     }
 
@@ -44,6 +52,14 @@ class SignupActivity : AppCompatActivity() {
 
 
     private fun completeSignUp() {
+        with(binding) {
+            signUpVm.signUp(
+                etId.text.toString(), etPw.text.toString(),
+                etName.text.toString(), etSkill.text.toString()
+            )
+        }
+
+        /*
         signUpSrvc.signUp(
             with(binding) {
                 ReqSignUpDto(
@@ -69,17 +85,18 @@ class SignupActivity : AppCompatActivity() {
             }
 
         })
+        */
     }
 
-private fun goBackToLoginActivity() {
-    val intent = Intent(this@SignupActivity, LoginActivity::class.java)
-    with(binding) {
-        intent.putExtra("id", etId.text.toString())
-        intent.putExtra("pw", etPw.text.toString())
-        intent.putExtra("name", etName.text.toString())
-        intent.putExtra("skill", etSkill.text.toString())
+    private fun goBackToLoginActivity() {
+        val intent = Intent(this@SignupActivity, LoginActivity::class.java)
+        with(binding) {
+            intent.putExtra("id", etId.text.toString())
+            intent.putExtra("pw", etPw.text.toString())
+            intent.putExtra("name", etName.text.toString())
+            intent.putExtra("skill", etSkill.text.toString())
+        }
+        setResult(RESULT_OK, intent)
+        finish()
     }
-    setResult(RESULT_OK, intent)
-    finish()
-}
 }

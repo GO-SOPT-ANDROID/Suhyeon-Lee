@@ -22,11 +22,6 @@ android {
         buildConfigField "String", "SOPT_SERVER_URL", properties["sopt.server.url"]
         buildConfigField "String", "REQRES_BASE_URL", properties["reqres.base.url"]
     }
-
-    buildFeatures {
-        buildConfig true
-    }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -41,6 +36,7 @@ android {
         jvmTarget = '11'
     }
     buildFeatures {
+        buildConfig true
         viewBinding true
     }
 }

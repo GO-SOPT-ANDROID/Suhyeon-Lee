@@ -2,16 +2,14 @@ package org.android.go.sopt
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import org.android.go.sopt.Data.Model.ReqLogInDto
-import org.android.go.sopt.Data.Model.ReqSignUpDto
 import org.android.go.sopt.Data.Model.ResLogInDto
-import org.android.go.sopt.Data.Model.ResSignUpDto
 import org.android.go.sopt.Data.SrvcPool
 import org.android.go.sopt.Home.HomeActivity
 import org.android.go.sopt.databinding.ActivityLoginBinding

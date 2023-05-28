@@ -18,6 +18,7 @@ class HomeViewModel: ViewModel() {
 
     private val listUsersSrvc = SrvcPool.reqresSrvc
 
+
     fun listUsers() {
         listUsersSrvc.listUsers()
             .enqueue(object: retrofit2.Callback<ResUsersDto> {
