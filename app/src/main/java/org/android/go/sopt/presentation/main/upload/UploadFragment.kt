@@ -1,5 +1,7 @@
 package org.android.go.sopt.presentation.main.upload
 
+import android.Manifest
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -14,6 +16,7 @@ import org.android.go.sopt.databinding.FragmentUploadBinding
 import org.android.go.sopt.presentation.main.MainViewModel
 import org.android.go.sopt.util.BindingFragment
 import org.android.go.sopt.util.ContentUriRequestBody
+import org.android.go.sopt.util.makeToast
 
 class UploadFragment : BindingFragment<FragmentUploadBinding>(R.layout.fragment_upload) {
 
@@ -33,6 +36,15 @@ class UploadFragment : BindingFragment<FragmentUploadBinding>(R.layout.fragment_
             }
         }
 
+    private val permLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+            if (isGranted) {
+                requireContext().makeToast("Permission allowed!")
+            } else {
+                requireContext().makeToast("Permission denied!")
+            }
+        }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -49,6 +61,17 @@ class UploadFragment : BindingFragment<FragmentUploadBinding>(R.layout.fragment_
         binding.btnUpload.setOnClickListener {
             mainVm.setDialogFlag(true)
             uploadVm.uploadImg(requireContext(), mainVm)
+        }
+
+        binding.btnReqPerm.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION)
+            ) {
+                requireContext().makeToast("Please allow us!")
+            }
+            else { // ask for permission
+                permLauncher.launch(Manifest.permission.ACCESS_COARSE_LOCATION)
+            }
         }
     }
 }
