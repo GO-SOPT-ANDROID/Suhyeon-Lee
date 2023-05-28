@@ -31,7 +31,7 @@ class HomeAdapter
         RecyclerView.ViewHolder(binding.root)
 }
 
-object HomeDiffCallback: DiffUtil.ItemCallback<ResUsersDto.Data>() {
+object HomeDiffCallback : DiffUtil.ItemCallback<ResUsersDto.Data>() {
     override fun areItemsTheSame(oldItem: ResUsersDto.Data, newItem: ResUsersDto.Data): Boolean {
         return oldItem.id == newItem.id
     }

@@ -2,12 +2,13 @@ package org.android.go.sopt.util
 
 import android.app.Activity
 import android.app.Dialog
+import android.content.Context
 import android.util.Log
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import org.android.go.sopt.databinding.DialogLoadingBinding
@@ -55,9 +56,15 @@ fun Activity.showLoadingDialog(dialog: Dialog, s: String) {
     dialog.setContentView(binding.root)
     dialog.setCancelable(false)
     binding.tvContent.text = s
+
     val params: WindowManager.LayoutParams = dialog.window?.attributes!!
     params.width = WindowManager.LayoutParams.MATCH_PARENT
     params.height = WindowManager.LayoutParams.WRAP_CONTENT
     dialog.window?.attributes = params
+
     dialog.show()
+}
+
+fun Context.makeToast(msg: String) {
+    Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 }

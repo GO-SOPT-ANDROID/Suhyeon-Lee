@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import org.android.go.sopt.data.SrvcPool
 import org.android.go.sopt.data.model.ResUsersDto
+import org.android.go.sopt.presentation.main.MainActivity
+import org.android.go.sopt.presentation.main.MainViewModel
 import org.android.go.sopt.util.enqueueUtil
 
 class HomeViewModel : ViewModel() {
@@ -16,21 +18,13 @@ class HomeViewModel : ViewModel() {
     private val _listUsersResult: MutableLiveData<List<ResUsersDto.Data>> = MutableLiveData()
     val listUsersResult: LiveData<List<ResUsersDto.Data>> = _listUsersResult
 
-    // true -> show dialog, false -> close dialog
-    private val _dialogFlag: MutableLiveData<Boolean> = MutableLiveData(false)
-    val dialogFlag: LiveData<Boolean> = _dialogFlag
-
-    fun listUsers() {
+    fun listUsers(mainVm: MainViewModel) {
         soptSrvc.listUsers().enqueueUtil(
             { res ->
                 _listUsersResult.value = res.data
-                _dialogFlag.value = false
+                mainVm.setDialogFlag(false)
             },
             { Log.e("ABC", "서버통신 실패(40X)") }
         )
-    }
-
-    fun setDialogFlag(b: Boolean) {
-        _dialogFlag.value = b
     }
 }

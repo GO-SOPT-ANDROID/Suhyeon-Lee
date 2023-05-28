@@ -1,5 +1,6 @@
 package org.android.go.sopt.presentation.main
 
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
@@ -12,9 +13,11 @@ import org.android.go.sopt.presentation.main.home.HomeFragment
 import org.android.go.sopt.presentation.main.upload.UploadFragment
 import org.android.go.sopt.util.BindingActivity
 import org.android.go.sopt.util.navigateTo
+import org.android.go.sopt.util.showLoadingDialog
 
 class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
-    private val homeVm by viewModels<MainViewModel>()
+    private val mainVm by viewModels<MainViewModel>()
+    private lateinit var dialog: Dialog
 
     private val launcher =
         registerForActivityResult(ActivityResultContracts.PickMultipleVisualMedia(maxItems = 3)) {
@@ -27,12 +30,22 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
         super.onCreate(savedInstanceState)
 
         registerBtnv()
+        registerObserver()
+        dialog = Dialog(this)
 
         /*
         binding.ivProfile.setOnClickListener {
             launcher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageAndVideo))
         }*/
 
+    }
+
+    private fun registerObserver() {
+        mainVm.dialogFlag.observe(this) {
+            Log.d("ABC", "dialog became $it")
+            if (it) this.showLoadingDialog(dialog, "Loading data...")
+            else dialog.cancel()
+        }
     }
 
     private fun registerBtnv() {
