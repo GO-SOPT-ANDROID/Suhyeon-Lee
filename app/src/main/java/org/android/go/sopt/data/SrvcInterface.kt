@@ -2,9 +2,9 @@ package org.android.go.sopt.data
 
 import okhttp3.MultipartBody
 import org.android.go.sopt.data.model.ReqLogInDto
-import org.android.go.sopt.data.model.ReqSignUpDto
+import org.android.go.sopt.data.model.ReqJoinDto
 import org.android.go.sopt.data.model.ResLogInDto
-import org.android.go.sopt.data.model.ResSignUpDto
+import org.android.go.sopt.data.model.ResJoinDto
 import org.android.go.sopt.data.model.ResUsersDto
 import retrofit2.Call
 import retrofit2.http.Body
@@ -16,8 +16,8 @@ import retrofit2.http.Part
 interface SrvcInterface {
     @POST("sign-up")
     fun signUp(
-        @Body req: ReqSignUpDto
-    ): Call<ResSignUpDto>
+        @Body req: ReqJoinDto
+    ): Call<ResJoinDto>
 
     @POST("sign-in")
     fun logIn(

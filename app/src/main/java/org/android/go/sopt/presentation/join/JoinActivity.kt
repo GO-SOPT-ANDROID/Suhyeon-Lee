@@ -9,20 +9,24 @@ import org.android.go.sopt.R
 import org.android.go.sopt.databinding.ActivityJoinBinding
 import org.android.go.sopt.presentation.login.LoginActivity
 import org.android.go.sopt.util.BindingActivity
+import org.android.go.sopt.util.makeToast
 
 class JoinActivity : BindingActivity<ActivityJoinBinding>(R.layout.activity_join) {
-    //private val signUpSrvc = SrvcPool.soptSrvc
     private val signUpVm by viewModels<JoinViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        registerClickEvents()
+    }
+
+    private fun registerClickEvents() {
         binding.btnSignup.setOnClickListener {
             clickSignUpBtn()
         }
 
-        signUpVm.signUpResult.observe(this) {
-            Toast.makeText(applicationContext, "회원가입 성공!", Toast.LENGTH_SHORT).show()
+        signUpVm.joinResult.observe(this) {
+            this.makeToast("회원가입 성공!")
             goBackToLoginActivity()
         }
     }
@@ -45,39 +49,11 @@ class JoinActivity : BindingActivity<ActivityJoinBinding>(R.layout.activity_join
 
     private fun completeSignUp() {
         with(binding) {
-            signUpVm.signUp(
+            signUpVm.join(
                 etId.text.toString(), etPw.text.toString(),
                 etName.text.toString(), etSkill.text.toString()
             )
         }
-
-        /*
-        signUpSrvc.signUp(
-            with(binding) {
-                ReqSignUpDto(
-                    etId.text.toString(), etPw.text.toString(),
-                    etName.text.toString(), etSkill.text.toString()
-                )
-            }
-        ).enqueue(object: retrofit2.Callback<ResSignUpDto> {
-            override fun onResponse(call: Call<ResSignUpDto>, response: Response<ResSignUpDto>) {
-                if (response.body()?.status in 200..300) {
-                    response.body()?.message.let {
-                        Toast.makeText(applicationContext, "회원가입 성공!", Toast.LENGTH_SHORT).show()
-                        goBackToLoginActivity()
-                    }
-                }
-                else {
-                    Toast.makeText(applicationContext, "서버통신 실패(40X)", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onFailure(call: Call<ResSignUpDto>, t: Throwable) {
-                Toast.makeText(applicationContext, "서버통신 실패(응답값 X)", Toast.LENGTH_SHORT).show()
-            }
-
-        })
-        */
     }
 
     private fun goBackToLoginActivity() {
