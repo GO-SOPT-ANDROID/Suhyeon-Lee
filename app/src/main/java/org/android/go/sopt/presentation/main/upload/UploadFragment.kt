@@ -64,14 +64,7 @@ class UploadFragment : BindingFragment<FragmentUploadBinding>(R.layout.fragment_
         }
 
         binding.btnReqPerm.setOnClickListener {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
-                shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION)
-            ) {
-                requireContext().showToast("Please allow us!")
-            }
-            else { // ask for permission
-                permLauncher.launch(Manifest.permission.ACCESS_COARSE_LOCATION)
-            }
+            permLauncher.launch(Manifest.permission.ACCESS_COARSE_LOCATION)
         }
     }
 }
