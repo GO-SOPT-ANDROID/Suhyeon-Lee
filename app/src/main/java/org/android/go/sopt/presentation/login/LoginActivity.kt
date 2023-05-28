@@ -25,7 +25,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         super.onCreate(savedInstanceState)
         with(binding) {
             btnLogin.setOnClickListener { onClickLogin() }
-            btnSignup.setOnClickListener { onClickSignUp() }
+            btnJoin.setOnClickListener { onClickSignUp() }
         }
 
         registerObserver()

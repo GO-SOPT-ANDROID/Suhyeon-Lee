@@ -2,6 +2,7 @@ package org.android.go.sopt.presentation.join
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import org.android.go.sopt.R
 import org.android.go.sopt.databinding.ActivityJoinBinding
@@ -11,28 +12,40 @@ import org.android.go.sopt.util.showSnackbar
 import org.android.go.sopt.util.showToast
 
 class JoinActivity : BindingActivity<ActivityJoinBinding>(R.layout.activity_join) {
-    private val signUpVm by viewModels<JoinViewModel>()
+    private val joinVm by viewModels<JoinViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         registerClickEvents()
+        registerObserver()
     }
 
     private fun registerClickEvents() {
-        binding.btnSignup.setOnClickListener {
+        binding.btnJoin.setOnClickListener {
             clickSignUpBtn()
         }
+    }
 
-        signUpVm.joinResult.observe(this) {
+    private fun registerObserver() {
+        joinVm.joinResult.observe(this) {
             this.showToast("회원가입 성공!")
             goBackToLoginActivity()
+        }
+
+        binding.vm = joinVm
+        joinVm.id.observe(this) {
+            Log.e("ABC", "Is this changing or not? ${it}")
+            val res = it.validateId()
+            joinVm.isIdValid = res.isValid
+            joinVm.idErrMsg.postValue(res.errMsg)
+            joinVm.validateInputs()
         }
     }
 
     private fun clickSignUpBtn() {
         with(binding) {
-            if (etId.text.isBlank()) showSnackbar(this.root, "ID를 입력하세요.")
+            if (etId.text!!.isBlank()) showSnackbar(this.root, "ID를 입력하세요.")
             else if (etPw.text.isBlank()) showSnackbar(this.root, "PW를 입력하세요.")
             else if (etName.text.isBlank()) showSnackbar(this.root, "이름을 입력하세요.")
             else if (etSkill.text.isBlank()) showSnackbar(this.root, "특기를 입력하세요.")
@@ -47,7 +60,7 @@ class JoinActivity : BindingActivity<ActivityJoinBinding>(R.layout.activity_join
 
     private fun completeSignUp() {
         with(binding) {
-            signUpVm.join(
+            joinVm.join(
                 applicationContext,
                 etId.text.toString(), etPw.text.toString(),
                 etName.text.toString(), etSkill.text.toString()

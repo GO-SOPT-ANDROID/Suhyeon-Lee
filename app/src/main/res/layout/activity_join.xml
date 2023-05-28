@@ -5,21 +5,23 @@
     tools:context=".presentation.join.JoinActivity">
 
     <data>
-
+        <import type="android.view.View" />
+        <variable
+            name="vm"
+            type="org.android.go.sopt.presentation.join.JoinViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:padding="30dp">
 
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tv_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="30dp"
-            android:text="Sign Up"
+            android:text="회원가입"
             android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -31,28 +33,42 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:text="ID"
+            android:text="아이디"
             android:textSize="20dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_label" />
 
-        <EditText
-            android:id="@+id/et_id"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/et_layout_id"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:hint="아이디를 입력하세요."
-            app:layout_constraintTop_toBottomOf="@id/tv_id" />
+            app:layout_constraintEnd_toEndOf="@id/tv_id"
+            app:layout_constraintStart_toStartOf="@id/tv_id"
+            app:layout_constraintTop_toBottomOf="@id/tv_id"
+            app:errorText="@{vm.idErrMsg}" >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:hint="아이디를 입력하세요."
+                android:text="@={vm.id}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/tv_pw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="PASSWORD"
+            android:text="비밀번호"
             android:textSize="20dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_id" />
+            app:layout_constraintTop_toBottomOf="@id/et_layout_id" />
 
         <EditText
             android:id="@+id/et_pw"
@@ -100,10 +116,11 @@
             app:layout_constraintTop_toBottomOf="@id/tv_hobby" />
 
         <Button
-            android:id="@+id/btn_signup"
+            android:id="@+id/btn_join"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
+            android:enabled="@{vm.isValid}"
             android:text="회원가입 완료!"
             app:layout_constraintTop_toBottomOf="@id/et_skill" />
 
