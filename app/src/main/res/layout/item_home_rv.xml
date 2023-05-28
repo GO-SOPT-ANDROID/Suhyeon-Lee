@@ -37,9 +37,11 @@
         app:layout_constraintTop_toBottomOf="@id/tv_name"
         tools:text="byebye@gmail.com" />
 
+    <!--
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
         android:layout_height="1dp"
         app:layout_constraintBottom_toBottomOf="parent" />
+        -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

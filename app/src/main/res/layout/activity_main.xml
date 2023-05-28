@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".presentation.home.HomeActivity">
+    tools:context=".presentation.main.MainActivity">
 
     <data>
 
@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!--
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_imgs"
             android:layout_width="match_parent"
@@ -60,6 +61,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cl_imgs"
             tools:listitem="@layout/item_rv_home" />
+        -->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main_fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/btnv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/btnv"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            app:itemBackground="@android:color/transparent"
+            app:itemIconTint="@drawable/selector_btnv"
+            app:itemTextColor="@drawable/selector_btnv"
+            app:labelVisibilityMode="labeled"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/menu_btnv" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

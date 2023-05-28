@@ -12,7 +12,7 @@ import org.android.go.sopt.data.SrvcPool
 import org.android.go.sopt.data.model.ReqLogInDto
 import org.android.go.sopt.data.model.ResLogInDto
 import org.android.go.sopt.databinding.ActivityLoginBinding
-import org.android.go.sopt.presentation.home.HomeActivity
+import org.android.go.sopt.presentation.main.MainActivity
 import org.android.go.sopt.presentation.join.JoinActivity
 import org.android.go.sopt.util.BindingActivity
 import retrofit2.Call
@@ -53,7 +53,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
             override fun onResponse(call: Call<ResLogInDto>, response: Response<ResLogInDto>) {
                 if (response.body()?.status in 200..300) {
                     response.body()?.message.let { // 서버통신 성공
-                        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
                         startActivity(intent)
                         finish()
                     }

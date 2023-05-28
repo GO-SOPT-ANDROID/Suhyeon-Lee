@@ -27,7 +27,7 @@ interface SrvcInterface {
     @GET("api/users?page=2")
     fun listUsers(): Call<ResUsersDto>
 
-    @Multipart
+    @Multipart // "이 API의 ReqBody가 multi-part 형식으로 간단다"
     @POST("upload")
     fun uploadImage(
         @Part file: MultipartBody.Part,

@@ -1,4 +1,4 @@
-package org.android.go.sopt.presentation.home
+package org.android.go.sopt.presentation.main
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -9,7 +9,7 @@ import org.android.go.sopt.data.SrvcPool
 import retrofit2.Call
 import retrofit2.Response
 
-class HomeViewModel: ViewModel() {
+class MainViewModel: ViewModel() {
     // 외부에서 liveData 값을 바꾸면 안 돼 -> ViewModel 외부에서는 liveData를 통해 값만 observe(읽기 전용)
     // ViewModel 내부에서는 MutableLiveData를 통해 접근, .value의 값을 변경
     private val _listUsersResult: MutableLiveData<List<ResUsersDto.Data>> = MutableLiveData()

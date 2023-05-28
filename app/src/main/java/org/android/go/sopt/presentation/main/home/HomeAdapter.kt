@@ -1,18 +1,18 @@
-package org.android.go.sopt.presentation.home
+package org.android.go.sopt.presentation.main.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import org.android.go.sopt.data.model.ResUsersDto
-import org.android.go.sopt.databinding.ItemRvHomeBinding
+import org.android.go.sopt.databinding.ItemHomeRvBinding
 
 class HomeAdapter(private val userList: List<ResUsersDto.Data>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return HomeViewHolder(
-            ItemRvHomeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemHomeRvBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
@@ -29,5 +29,5 @@ class HomeAdapter(private val userList: List<ResUsersDto.Data>) :
         }
     }
 
-    class HomeViewHolder(val binding: ItemRvHomeBinding) : RecyclerView.ViewHolder(binding.root)
+    class HomeViewHolder(val binding: ItemHomeRvBinding) : RecyclerView.ViewHolder(binding.root)
 }

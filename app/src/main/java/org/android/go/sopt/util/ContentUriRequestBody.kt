@@ -10,6 +10,21 @@ import okhttp3.RequestBody
 import okio.BufferedSink
 import okio.source
 
+/* Multi-part 서버 통신: 서버에 사진 전송
+ * 1. URI를 가져온다
+ * 2. 이걸 Bitmap으로 변환
+ * 3. 이걸 File로 저장
+ * 4. 이걸 RequestBody로 변환
+ * 5. 드디어 서버에 전송!
+ *
+ * 1) (SrvcInterface) api 작성
+ * @Part annotation으로 보내지는 데이터 타입들은 MultipartBody.Part여야 한다.
+ * (참고로: 살펴보면 MultipartBody는 RequestBody를 상속받고 있음)
+ * 그럼.. 보내려는 사진 URI를 RequestBody 타입으로 바꿔줘야 겠지?
+ * 2) Util 코드 사용해 URI -> RequestBody로 변환
+ * 3) 서버에 쏘기
+*/
+
 class ContentUriRequestBody(
     context: Context,
     private val uri: Uri
