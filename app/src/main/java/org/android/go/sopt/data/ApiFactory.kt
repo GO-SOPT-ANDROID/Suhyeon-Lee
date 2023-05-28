@@ -1,4 +1,4 @@
-package org.android.go.sopt.Data
+package org.android.go.sopt.data
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
@@ -12,31 +12,15 @@ object ApiFactory {
     private const val SOPT_URL = BuildConfig.SOPT_SERVER_URL
     private const val REQRES_URL = BuildConfig.REQRES_BASE_URL
 
-    /********* 김지피티 버전 *********/
-    val httpLoggingInterceptor = HttpLoggingInterceptor()
-        .setLevel(HttpLoggingInterceptor.Level.BODY)
-
-    private val okhttpClient = OkHttpClient.Builder()
-        .addInterceptor(httpLoggingInterceptor)
-        .build()
-    /**************************/
-
+    // 솝트32 셈나에서 배운 버전
+    /*
     private val client by lazy {
         OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor().apply {
             level =
-                if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
+                if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
+                else HttpLoggingInterceptor.Level.NONE
         }).build()
     }
-
-    /* 김지피티 버전
-    val retrofitSopt: Retrofit by lazy {
-        Retrofit.Builder()
-            .baseUrl(SOPT_URL)
-            .client(okhttpClient)
-            .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
-            .build()
-    }
-    */
 
     val retrofitSopt: Retrofit by lazy {
         Retrofit.Builder()
@@ -44,6 +28,22 @@ object ApiFactory {
             .client(okhttpClient)
             .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
             .client(client).build()
+    }
+    */
+
+    private val httpLoggingInterceptor = HttpLoggingInterceptor()
+        .setLevel(HttpLoggingInterceptor.Level.BODY)
+
+    private val okhttpClient = OkHttpClient.Builder()
+        .addInterceptor(httpLoggingInterceptor)
+        .build()
+
+    val retrofitSopt: Retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl(SOPT_URL)
+            .client(okhttpClient)
+            .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+            .build()
     }
 
     val retrofitReqres: Retrofit by lazy {

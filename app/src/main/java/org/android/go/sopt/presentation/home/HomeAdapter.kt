@@ -1,11 +1,10 @@
-package org.android.go.sopt.Home
+package org.android.go.sopt.presentation.home
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import org.android.go.sopt.Data.Model.ResUsersDto
+import org.android.go.sopt.data.model.ResUsersDto
 import org.android.go.sopt.databinding.ItemRvHomeBinding
 
 class HomeAdapter(private val userList: List<ResUsersDto.Data>) :

@@ -1,4 +1,4 @@
-package org.android.go.sopt
+package org.android.go.sopt.presentation.login
 
 import android.app.Activity
 import android.content.Intent
@@ -6,19 +6,19 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
-import org.android.go.sopt.Data.Model.ReqLogInDto
-import org.android.go.sopt.Data.Model.ResLogInDto
-import org.android.go.sopt.Data.SrvcPool
-import org.android.go.sopt.Home.HomeActivity
+import org.android.go.sopt.R
+import org.android.go.sopt.data.SrvcPool
+import org.android.go.sopt.data.model.ReqLogInDto
+import org.android.go.sopt.data.model.ResLogInDto
 import org.android.go.sopt.databinding.ActivityLoginBinding
+import org.android.go.sopt.presentation.home.HomeActivity
+import org.android.go.sopt.presentation.join.JoinActivity
+import org.android.go.sopt.util.BindingActivity
 import retrofit2.Call
 import retrofit2.Response
 
-class LoginActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityLoginBinding
+class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_login) {
     private val logInSrvc = SrvcPool.soptSrvc
 
     private var id: String = ""
@@ -28,12 +28,9 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
         with(binding) {
             btnLogin.setOnClickListener { onClickLogin() }
-            btnSignup.setOnClickListener { onClickSignUp()}
+            btnSignup.setOnClickListener { onClickSignUp() }
         }
     }
 
@@ -41,8 +38,7 @@ class LoginActivity : AppCompatActivity() {
         with(binding) {
             if (etId.text.isBlank() || etPw.text.isBlank()) {
                 Snackbar.make(this.root, "Invalid ID or Password", Snackbar.LENGTH_SHORT).show()
-            }
-            else completeLogIn()
+            } else completeLogIn()
         }
     }
 
@@ -53,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
                     etId.text.toString(), etPw.text.toString()
                 )
             }
-        ).enqueue(object: retrofit2.Callback<ResLogInDto> {
+        ).enqueue(object : retrofit2.Callback<ResLogInDto> {
             override fun onResponse(call: Call<ResLogInDto>, response: Response<ResLogInDto>) {
                 if (response.body()?.status in 200..300) {
                     response.body()?.message.let { // 서버통신 성공
@@ -61,8 +57,7 @@ class LoginActivity : AppCompatActivity() {
                         startActivity(intent)
                         finish()
                     }
-                }
-                else { // 서버통신 실패(40X)
+                } else { // 서버통신 실패(40X)
                     Toast.makeText(applicationContext, "서버통신 실패(40X)", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -74,7 +69,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun onClickSignUp() {
-        val intent = Intent(this, SignupActivity::class.java)
+        val intent = Intent(this, JoinActivity::class.java)
         resultLauncher.launch(intent)
     }
 

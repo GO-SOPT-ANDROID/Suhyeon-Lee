@@ -1,16 +1,16 @@
-package org.android.go.sopt
+package org.android.go.sopt.presentation.join
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import org.android.go.sopt.Data.Model.ReqSignUpDto
-import org.android.go.sopt.Data.Model.ResSignUpDto
-import org.android.go.sopt.Data.SrvcPool
+import org.android.go.sopt.data.model.ReqSignUpDto
+import org.android.go.sopt.data.model.ResSignUpDto
+import org.android.go.sopt.data.SrvcPool
 import retrofit2.Call
 import retrofit2.Response
 
-class SignupViewModel: ViewModel() {
+class JoinViewModel: ViewModel() {
     private val _signUpResult: MutableLiveData<ResSignUpDto> = MutableLiveData()
     val signUpResult: LiveData<ResSignUpDto> = _signUpResult
 

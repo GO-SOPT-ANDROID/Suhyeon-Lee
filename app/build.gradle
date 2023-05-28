@@ -38,6 +38,7 @@ android {
     buildFeatures {
         buildConfig true
         viewBinding true
+        dataBinding true
     }
 }
 
@@ -51,10 +52,12 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
+    // retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1'
     implementation 'com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0'
 
+    // okhttp3
     implementation(platform("com.squareup.okhttp3:okhttp-bom:4.10.0"))
     // define any required OkHttp artifacts without version (BOM을 위에 명시했으니, 밑의 버전들은 BOM에 맞게 적용됩니다.)
     implementation("com.squareup.okhttp3:okhttp")
@@ -63,7 +66,7 @@ dependencies {
     // Coil
     implementation("io.coil-kt:coil:2.3.0")
 
-    // by viewModels() 이용해 viewModel 생성하기
+    // ViewModel delegate: by viewModels() 이용해 viewModel 생성
     implementation 'androidx.activity:activity-ktx:1.7.1'
     implementation 'androidx.fragment:fragment-ktx:1.5.7'
 }

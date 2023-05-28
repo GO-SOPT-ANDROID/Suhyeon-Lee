@@ -1,6 +1,6 @@
-package org.android.go.sopt
+package org.android.go.sopt.presentation
 
-import ContentUriRequestBody
+import org.android.go.sopt.util.ContentUriRequestBody
 import android.Manifest
 import android.os.Bundle
 import android.util.Log

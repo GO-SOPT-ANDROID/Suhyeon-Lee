@@ -1,12 +1,11 @@
-package org.android.go.sopt.Home
+package org.android.go.sopt.presentation.home
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import org.android.go.sopt.Data.Model.ResUsersDto
-import org.android.go.sopt.Data.SrvcPool
+import org.android.go.sopt.data.model.ResUsersDto
+import org.android.go.sopt.data.SrvcPool
 import retrofit2.Call
 import retrofit2.Response
 

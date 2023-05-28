@@ -1,10 +1,10 @@
-package org.android.go.sopt.Data.Model
+package org.android.go.sopt.data.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ResLogInDto(
+data class ResSignUpDto(
     @SerialName("status")
     val status: Int,
     @SerialName("message")
@@ -14,8 +14,6 @@ data class ResLogInDto(
 ) {
     @Serializable
     data class SignUpData(
-        @SerialName("id")
-        val id: String,
         @SerialName("name")
         val name: String,
         @SerialName("skill")

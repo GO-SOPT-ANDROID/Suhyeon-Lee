@@ -1,11 +1,11 @@
-package org.android.go.sopt.Data
+package org.android.go.sopt.data
 
 import okhttp3.MultipartBody
-import org.android.go.sopt.Data.Model.ReqLogInDto
-import org.android.go.sopt.Data.Model.ReqSignUpDto
-import org.android.go.sopt.Data.Model.ResLogInDto
-import org.android.go.sopt.Data.Model.ResSignUpDto
-import org.android.go.sopt.Data.Model.ResUsersDto
+import org.android.go.sopt.data.model.ReqLogInDto
+import org.android.go.sopt.data.model.ReqSignUpDto
+import org.android.go.sopt.data.model.ResLogInDto
+import org.android.go.sopt.data.model.ResSignUpDto
+import org.android.go.sopt.data.model.ResUsersDto
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET

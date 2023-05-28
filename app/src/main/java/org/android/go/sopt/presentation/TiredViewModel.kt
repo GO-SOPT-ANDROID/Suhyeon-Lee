@@ -1,11 +1,11 @@
-package org.android.go.sopt
+package org.android.go.sopt.presentation
 
-import ContentUriRequestBody
+import org.android.go.sopt.util.ContentUriRequestBody
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import org.android.go.sopt.Data.SrvcPool
+import org.android.go.sopt.data.SrvcPool
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".presentation.login.LoginActivity">
+    tools:context=".presentation.join.JoinActivity">
 
     <data>
 
@@ -20,8 +19,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="30dp"
-            android:text="Welcome to GO Android!"
+            android:text="Sign Up"
             android:textSize="20dp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -40,7 +40,7 @@
             android:id="@+id/et_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:hint="아이디를 입력하세요."
             app:layout_constraintTop_toBottomOf="@id/tv_id" />
 
@@ -48,8 +48,8 @@
             android:id="@+id/tv_pw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="PW"
+            android:layout_marginTop="20dp"
+            android:text="PASSWORD"
             android:textSize="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_id" />
@@ -58,26 +58,54 @@
             android:id="@+id/et_pw"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:hint="비밀번호를 입력하세요."
             android:inputType="textPassword"
             app:layout_constraintTop_toBottomOf="@id/tv_pw" />
 
-        <Button
-            android:id="@+id/btn_login"
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="NAME"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_pw" />
+
+        <EditText
+            android:id="@+id/et_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="LOGIN"
-            app:layout_constraintTop_toBottomOf="@id/et_pw" />
+            android:layout_marginTop="10dp"
+            android:hint="이름을 입력하세요."
+            app:layout_constraintTop_toBottomOf="@id/tv_name" />
+
+        <TextView
+            android:id="@+id/tv_hobby"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="특기"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_name" />
+
+        <EditText
+            android:id="@+id/et_skill"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:hint="특기를 입력하세요."
+            app:layout_constraintTop_toBottomOf="@id/tv_hobby" />
 
         <Button
             android:id="@+id/btn_signup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="SIGN UP"
-            app:layout_constraintTop_toBottomOf="@id/btn_login" />
+            android:layout_marginTop="50dp"
+            android:text="회원가입 완료!"
+            app:layout_constraintTop_toBottomOf="@id/et_skill" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

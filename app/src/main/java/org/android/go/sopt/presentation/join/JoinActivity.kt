@@ -1,29 +1,21 @@
-package org.android.go.sopt
+package org.android.go.sopt.presentation.join
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.google.android.material.snackbar.Snackbar
-import org.android.go.sopt.Data.Model.ReqSignUpDto
-import org.android.go.sopt.Data.Model.ResSignUpDto
-import org.android.go.sopt.Data.SrvcPool
-import org.android.go.sopt.Home.HomeViewModel
-import org.android.go.sopt.databinding.ActivitySignupBinding
-import retrofit2.Call
-import retrofit2.Response
+import org.android.go.sopt.R
+import org.android.go.sopt.databinding.ActivityJoinBinding
+import org.android.go.sopt.presentation.login.LoginActivity
+import org.android.go.sopt.util.BindingActivity
 
-class SignupActivity : AppCompatActivity() {
-    private lateinit var binding: ActivitySignupBinding
+class JoinActivity : BindingActivity<ActivityJoinBinding>(R.layout.activity_join) {
     //private val signUpSrvc = SrvcPool.soptSrvc
-    private val signUpVm by viewModels<SignupViewModel>()
+    private val signUpVm by viewModels<JoinViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySignupBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         binding.btnSignup.setOnClickListener {
             clickSignUpBtn()
@@ -89,7 +81,7 @@ class SignupActivity : AppCompatActivity() {
     }
 
     private fun goBackToLoginActivity() {
-        val intent = Intent(this@SignupActivity, LoginActivity::class.java)
+        val intent = Intent(this@JoinActivity, LoginActivity::class.java)
         with(binding) {
             intent.putExtra("id", etId.text.toString())
             intent.putExtra("pw", etPw.text.toString())

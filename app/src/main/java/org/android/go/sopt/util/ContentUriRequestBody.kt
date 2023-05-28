@@ -1,3 +1,5 @@
+package org.android.go.sopt.util
+
 import android.content.Context
 import android.net.Uri
 import android.provider.MediaStore
