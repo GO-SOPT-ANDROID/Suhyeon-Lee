@@ -13,24 +13,28 @@ import org.android.go.sopt.util.showToast
 
 
 class JoinViewModel : ViewModel() {
-    var id: MutableLiveData<String> = MutableLiveData()
-    var idErrMsg: MutableLiveData<String> = MutableLiveData()
+    val id: MutableLiveData<String> = MutableLiveData()
+    val idErrMsg: MutableLiveData<String> = MutableLiveData()
 
-    private val _pw: MutableLiveData<String> = MutableLiveData()
-    val pw: LiveData<String> = _pw
-    var pwErrMsg: String = ""
+    val pw: MutableLiveData<String> = MutableLiveData()
+    val pwErrMsg: MutableLiveData<String> = MutableLiveData()
+
+    val nameErrMsg: MutableLiveData<String> = MutableLiveData()
+    val skillErrMsg: MutableLiveData<String> = MutableLiveData()
 
     var isIdValid: Boolean = false
     var isPwValid: Boolean = false
-    var isValid: Boolean = false
 
+    val isValid: MutableLiveData<Boolean> = MutableLiveData(false)
+
+    private val soptSrvc = SrvcPool.soptSrvc
     private val _joinResult: MutableLiveData<ResJoinDto> = MutableLiveData()
     val joinResult: LiveData<ResJoinDto> = _joinResult
 
-    private val soptSrvc = SrvcPool.soptSrvc
-
     fun validateInputs() {
-        if (isIdValid && isPwValid) isValid = true
+        if (isIdValid && isPwValid) {
+            isValid.value = true
+        }
     }
 
     fun join(context: Context, id: String, pw: String, name: String, skill: String) {

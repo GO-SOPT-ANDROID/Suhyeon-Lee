@@ -9,22 +9,20 @@ class InputValidation(val isValid: Boolean, val errMsg: String)
 fun String.validateId(): InputValidation {
     val regex = Regex("^[a-zA-Z0-9]{6,10}$")
     return if (trim().isEmpty()) {
-        Log.e("ABC", "IS EMPTY")
-        InputValidation(false, "ID is empty.")
+        InputValidation(false, "아이디가 비어있어요.")
     } else if (!this.matches(regex)) {
-        Log.e("ABC", "INVALID")
-        InputValidation(false, "영어, 숫자를 조합하여 6~10자로 만들어주세요.")
+        InputValidation(false, "조건: 영어, 숫자가 포함된 6~10자")
     } else {
-        Log.e("ABC", "VALID")
         InputValidation(true, "")
     }
 }
 
 fun String.validatePw(): InputValidation {
+    val regex = Regex("^[a-zA-Z0-9!@#$%^&*()]{6,12}$")
     return if (trim().isEmpty()) {
-        InputValidation(false, "PW is empty.")
-    } else if (Pattern.compile("[A-Za-z0-9!@#$%^&]{8,12}").matcher(this).matches()) {
-        InputValidation(false, "영어, 숫자, 특수문자를 조합하여 8~12자로 만들어주세요.")
+        InputValidation(false, "비밀번호가 비어있어요.")
+    } else if (!this.matches(regex)) {
+        InputValidation(false, "조건: 영어, 숫자, 특수문자가 포함된 6~12자")
     } else {
         InputValidation(true, "")
     }

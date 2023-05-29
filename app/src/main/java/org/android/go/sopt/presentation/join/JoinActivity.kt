@@ -2,7 +2,6 @@ package org.android.go.sopt.presentation.join
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import org.android.go.sopt.R
 import org.android.go.sopt.databinding.ActivityJoinBinding
@@ -23,7 +22,7 @@ class JoinActivity : BindingActivity<ActivityJoinBinding>(R.layout.activity_join
 
     private fun registerClickEvents() {
         binding.btnJoin.setOnClickListener {
-            clickSignUpBtn()
+            clickJoinBtn()
         }
     }
 
@@ -35,30 +34,45 @@ class JoinActivity : BindingActivity<ActivityJoinBinding>(R.layout.activity_join
 
         binding.vm = joinVm
         joinVm.id.observe(this) {
-            Log.e("ABC", "Is this changing or not? ${it}")
             val res = it.validateId()
-            joinVm.isIdValid = res.isValid
-            joinVm.idErrMsg.postValue(res.errMsg)
-            joinVm.validateInputs()
+            with(joinVm) {
+                isIdValid = res.isValid
+                idErrMsg.postValue(res.errMsg)
+                validateInputs()
+            }
+        }
+        joinVm.pw.observe(this) {
+            val res = it.validatePw()
+            with(joinVm) {
+                isPwValid = res.isValid
+                pwErrMsg.postValue(res.errMsg)
+                validateInputs()
+            }
         }
     }
 
-    private fun clickSignUpBtn() {
+    private fun checkOptionalInput(): Boolean {
+        return if (binding.etName.text.isNullOrEmpty()) false
+        else if (binding.etSkill.text.isNullOrEmpty()) false
+        else true
+    }
+
+    private fun clickJoinBtn() {
         with(binding) {
-            if (etId.text!!.isBlank()) showSnackbar(this.root, "ID를 입력하세요.")
-            else if (etPw.text.isBlank()) showSnackbar(this.root, "PW를 입력하세요.")
-            else if (etName.text.isBlank()) showSnackbar(this.root, "이름을 입력하세요.")
-            else if (etSkill.text.isBlank()) showSnackbar(this.root, "특기를 입력하세요.")
-            else if (etId.length() < 6 || 10 < etId.length()) {
-                showSnackbar(this.root, "ID는 6~10자여야 합니다.")
-            } else if (etPw.length() < 8 || 12 < etPw.length()) {
-                showSnackbar(this.root, "PW는 8~12자여야 합니다.")
-            } else completeSignUp()
+            if (!etName.text.isNullOrEmpty()) { // valid
+                joinVm.nameErrMsg.postValue("")
+                if (!etSkill.text.isNullOrEmpty()) { // valid
+                    joinVm.skillErrMsg.postValue("")
+                    completeJoin()
+                }
+                else joinVm.skillErrMsg.postValue("특기를 알려주세요!")
+            }
+            else joinVm.nameErrMsg.postValue("이름을 알려주세요!")
         }
     }
 
 
-    private fun completeSignUp() {
+    private fun completeJoin() {
         with(binding) {
             joinVm.join(
                 applicationContext,
