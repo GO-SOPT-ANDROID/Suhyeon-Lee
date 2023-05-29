@@ -47,7 +47,8 @@
             app:layout_constraintEnd_toEndOf="@id/tv_id"
             app:layout_constraintStart_toStartOf="@id/tv_id"
             app:layout_constraintTop_toBottomOf="@id/tv_id"
-            app:errorText="@{vm.idErrMsg}" >
+            app:inputStyle="@{vm.isIdValid}"
+            app:idGuideText="@{vm.isIdValid}" >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_id"
@@ -55,7 +56,6 @@
                 android:layout_height="wrap_content"
                 android:imeOptions="actionNext"
                 android:inputType="text"
-                android:hint="아이디를 입력하세요."
                 android:text="@={vm.id}" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -79,7 +79,8 @@
             app:layout_constraintEnd_toEndOf="@id/tv_pw"
             app:layout_constraintStart_toStartOf="@id/tv_pw"
             app:layout_constraintTop_toBottomOf="@id/tv_pw"
-            app:errorText="@{vm.pwErrMsg}" >
+            app:inputStyle="@{vm.isPwValid}"
+            app:pwGuideText="@{vm.isPwValid}" >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_pw"
@@ -87,7 +88,6 @@
                 android:layout_height="wrap_content"
                 android:imeOptions="actionNext"
                 android:inputType="textPassword"
-                android:hint="비밀번호를 입력하세요."
                 android:text="@={vm.pw}" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -110,8 +110,8 @@
             android:layout_marginTop="5dp"
             app:layout_constraintEnd_toEndOf="@id/tv_pw"
             app:layout_constraintStart_toStartOf="@id/tv_pw"
-            app:layout_constraintTop_toBottomOf="@id/tv_name"
-            app:errorText="@{vm.nameErrMsg}" >
+            app:layout_constraintTop_toBottomOf="@id/tv_name" >
+            <!-- app:errorText="@{vm.nameErrMsg}" > -->
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_name"
@@ -141,8 +141,8 @@
             android:layout_marginTop="5dp"
             app:layout_constraintEnd_toEndOf="@id/tv_pw"
             app:layout_constraintStart_toStartOf="@id/tv_pw"
-            app:layout_constraintTop_toBottomOf="@id/tv_skill"
-            app:errorText="@{vm.skillErrMsg}" >
+            app:layout_constraintTop_toBottomOf="@id/tv_skill" >
+            <!-- app:errorText="@{vm.skillErrMsg}" >-->
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_skill"

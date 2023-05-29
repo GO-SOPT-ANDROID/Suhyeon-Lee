@@ -1,7 +1,9 @@
 package org.android.go.sopt.presentation.join
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import org.android.go.sopt.R
 import org.android.go.sopt.databinding.ActivityJoinBinding
@@ -34,20 +36,16 @@ class JoinActivity : BindingActivity<ActivityJoinBinding>(R.layout.activity_join
 
         binding.vm = joinVm
         joinVm.id.observe(this) {
-            val res = it.validateId()
-            with(joinVm) {
-                isIdValid = res.isValid
-                idErrMsg.postValue(res.errMsg)
-                validateInputs()
-            }
+            joinVm.isIdValid.postValue(it.validateId())
         }
         joinVm.pw.observe(this) {
-            val res = it.validatePw()
-            with(joinVm) {
-                isPwValid = res.isValid
-                pwErrMsg.postValue(res.errMsg)
-                validateInputs()
-            }
+            joinVm.isPwValid.postValue(it.validatePw())
+        }
+        joinVm.isIdValid.observe(this) {
+            joinVm.validateInputs()
+        }
+        joinVm.isPwValid.observe(this) {
+            joinVm.validateInputs()
         }
     }
 
