@@ -22,7 +22,7 @@ class HomeAdapter
         val curItem = currentList[position]
         with((holder as HomeViewHolder).binding) {
             ivProfile.load(curItem.avatar)
-            tvName.text = curItem.lastName + curItem.firstName
+            tvName.text = "${curItem.lastName} ${curItem.firstName}"
             tvEmail.text = curItem.email
         }
     }

@@ -5,164 +5,173 @@
     tools:context=".presentation.join.JoinActivity">
 
     <data>
-        <import type="android.view.View" />
+
         <variable
             name="vm"
             type="org.android.go.sopt.presentation.join.JoinViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="30dp">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="30dp"
-            android:text="회원가입"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="아이디"
-            android:textSize="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_label" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/et_layout_id"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            app:layout_constraintEnd_toEndOf="@id/tv_id"
-            app:layout_constraintStart_toStartOf="@id/tv_id"
-            app:layout_constraintTop_toBottomOf="@id/tv_id"
-            app:inputStyle="@{vm.isIdValid}"
-            app:idGuideText="@{vm.isIdValid}" >
+            android:layout_height="match_parent"
+            android:padding="30dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_id"
+            <TextView
+                android:id="@+id/tv_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="회원가입"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="아이디"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_label" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/et_layout_id"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:imeOptions="actionNext"
-                android:inputType="text"
-                android:text="@={vm.id}" />
+                android:layout_marginTop="5dp"
+                app:idGuideText="@{vm.isIdValid}"
+                app:inputStyle="@{vm.isIdValid}"
+                app:layout_constraintEnd_toEndOf="@id/tv_id"
+                app:layout_constraintStart_toStartOf="@id/tv_id"
+                app:layout_constraintTop_toBottomOf="@id/tv_id">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:text="@={vm.id}" />
 
-        <TextView
-            android:id="@+id/tv_pw"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="비밀번호"
-            android:textSize="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_layout_id" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/et_layout_pw"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            app:layout_constraintEnd_toEndOf="@id/tv_pw"
-            app:layout_constraintStart_toStartOf="@id/tv_pw"
-            app:layout_constraintTop_toBottomOf="@id/tv_pw"
-            app:inputStyle="@{vm.isPwValid}"
-            app:pwGuideText="@{vm.isPwValid}" >
+            <TextView
+                android:id="@+id/tv_pw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="비밀번호"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_layout_id" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_pw"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/et_layout_pw"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:imeOptions="actionNext"
-                android:inputType="textPassword"
-                android:text="@={vm.pw}" />
+                android:layout_marginTop="5dp"
+                app:inputStyle="@{vm.isPwValid}"
+                app:layout_constraintEnd_toEndOf="@id/tv_pw"
+                app:layout_constraintStart_toStartOf="@id/tv_pw"
+                app:layout_constraintTop_toBottomOf="@id/tv_pw"
+                app:pwGuideText="@{vm.isPwValid}">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_pw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPassword"
+                    android:text="@={vm.pw}" />
 
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="NAME"
-            android:textSize="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_layout_pw" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/et_layout_name"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            app:layout_constraintEnd_toEndOf="@id/tv_pw"
-            app:layout_constraintStart_toStartOf="@id/tv_pw"
-            app:layout_constraintTop_toBottomOf="@id/tv_name" >
-            <!-- app:errorText="@{vm.nameErrMsg}" > -->
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="NAME"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_layout_pw" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_name"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/et_layout_name"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:imeOptions="actionNext"
-                android:inputType="textPassword"
-                android:hint="이름을 입력하세요." />
+                android:layout_marginTop="5dp"
+                app:inputStyle="@{vm.isNameValid}"
+                app:layout_constraintEnd_toEndOf="@id/tv_pw"
+                app:layout_constraintStart_toStartOf="@id/tv_pw"
+                app:layout_constraintTop_toBottomOf="@id/tv_name"
+                app:nameGuideText="@{vm.isNameValid}">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:text="@={vm.name}" />
 
-        <TextView
-            android:id="@+id/tv_skill"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="특기"
-            android:textSize="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_layout_name" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/et_layout_skill"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            app:layout_constraintEnd_toEndOf="@id/tv_pw"
-            app:layout_constraintStart_toStartOf="@id/tv_pw"
-            app:layout_constraintTop_toBottomOf="@id/tv_skill" >
-            <!-- app:errorText="@{vm.skillErrMsg}" >-->
+            <TextView
+                android:id="@+id/tv_skill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="특기"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_layout_name" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_skill"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/et_layout_skill"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:imeOptions="actionNext"
-                android:inputType="textPassword"
-                android:hint="특기를 입력하세요." />
+                android:layout_marginTop="5dp"
+                app:inputStyle="@{vm.isSkillValid}"
+                app:layout_constraintEnd_toEndOf="@id/tv_pw"
+                app:layout_constraintStart_toStartOf="@id/tv_pw"
+                app:layout_constraintTop_toBottomOf="@id/tv_skill"
+                app:skillGuideText="@{vm.isSkillValid}">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_skill"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:text="@={vm.skill}" />
 
-        <Button
-            android:id="@+id/btn_join"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:enabled="@{vm.isValid}"
-            android:text="회원가입 완료!"
-            app:layout_constraintTop_toBottomOf="@id/et_layout_skill" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/btn_join"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:enabled="@{vm.isValid}"
+                android:paddingVertical="10dp"
+                android:text="회원가입 하기"
+                android:textSize="15sp"
+                app:layout_constraintTop_toBottomOf="@id/et_layout_skill" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </layout>

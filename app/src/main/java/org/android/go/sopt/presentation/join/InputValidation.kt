@@ -19,3 +19,8 @@ fun String.validatePw(): Int {
     else if (!this.matches(regex)) 2 // invalid
     else 1 // valid
 }
+
+fun String.validateEmpty(): Int {
+    return if (trim().isEmpty()) 0 // empty
+    else 1 // valid
+}

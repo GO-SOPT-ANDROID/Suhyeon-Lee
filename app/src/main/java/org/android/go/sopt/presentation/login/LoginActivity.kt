@@ -34,6 +34,9 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     private fun registerObserver() {
         loginVm.loginResult.observe(this) {
             val intent = Intent(this@LoginActivity, MainActivity::class.java)
+            intent.putExtra("id", id)
+            intent.putExtra("name", name)
+            intent.putExtra("skill", skill)
             startActivity(intent)
             finish()
         }
@@ -47,34 +50,6 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         }
     }
 
-    /*
-    private fun completeLogIn() {
-        logInSrvc.logIn(
-            with(binding) {
-                ReqLogInDto(
-                    etId.text.toString(), etPw.text.toString()
-                )
-            }
-        ).enqueue(object : retrofit2.Callback<ResLogInDto> {
-            override fun onResponse(call: Call<ResLogInDto>, response: Response<ResLogInDto>) {
-                if (response.body()?.status in 200..300) {
-                    response.body()?.message.let { // 서버통신 성공
-                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    }
-                } else { // 서버통신 실패(40X)
-                    Toast.makeText(applicationContext, "서버통신 실패(40X)", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onFailure(call: Call<ResLogInDto>, t: Throwable) { // 서버통신 실패(응답값 X)
-                Toast.makeText(applicationContext, "서버통신 실패(응답값 X)", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
-    */
-
     private fun onClickSignUp() {
         val intent = Intent(this, JoinActivity::class.java)
         resultLauncher.launch(intent)
@@ -87,7 +62,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
             id = result.data?.getStringExtra("id") ?: ""
             pw = result.data?.getStringExtra("pw") ?: ""
             name = result.data?.getStringExtra("name") ?: ""
-            skill = result.data?.getStringExtra("hobby") ?: ""
+            skill = result.data?.getStringExtra("skill") ?: ""
             binding.etId.setText(id)
             binding.etPw.setText(pw)
         }

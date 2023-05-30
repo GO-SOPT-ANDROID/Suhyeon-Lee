@@ -1,5 +1,6 @@
 package org.android.go.sopt.presentation.main
 
+import android.app.Activity
 import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
@@ -19,30 +20,25 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
     private val mainVm by viewModels<MainViewModel>()
     private lateinit var dialog: Dialog
 
-    private val launcher =
-        registerForActivityResult(ActivityResultContracts.PickMultipleVisualMedia(maxItems = 3)) {
-            //binding.ivProfile.load(it[0])
-            //binding.ivProfile2.load(it[1])
-            //binding.ivProfile3.load(it[2])
-        }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        getDataFromLogin()
         registerBtnv()
         registerObserver()
         dialog = Dialog(this)
+    }
 
-        /*
-        binding.ivProfile.setOnClickListener {
-            launcher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageAndVideo))
-        }*/
-
+    private fun getDataFromLogin() {
+        with(mainVm) {
+            id = intent.getStringExtra("id") ?: "unknown"
+            name = intent.getStringExtra("name") ?: "unknown"
+            skill = intent.getStringExtra("skill") ?: "unknown"
+        }
     }
 
     private fun registerObserver() {
         mainVm.dialogFlag.observe(this) {
-            Log.d("ABC", "dialog became $it")
             if (it) this.showLoadingDialog(dialog, "Loading data...")
             else dialog.cancel()
         }
