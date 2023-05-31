@@ -12,6 +12,10 @@ import org.android.go.sopt.databinding.ItemHomeRvBinding
 class HomeAdapter
     : ListAdapter<ResUsersDto.Data, RecyclerView.ViewHolder>(HomeDiffCallback) {
 
+    init {
+        setHasStableIds(true)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return HomeViewHolder(
             ItemHomeRvBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -25,6 +29,10 @@ class HomeAdapter
             tvName.text = "${curItem.lastName} ${curItem.firstName}"
             tvEmail.text = curItem.email
         }
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
     }
 
     class HomeViewHolder(val binding: ItemHomeRvBinding) :

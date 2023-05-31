@@ -11,7 +11,7 @@ object BindingExtensions {
     @JvmStatic
     @BindingAdapter("inputStyle")
     fun TextInputLayout.setInputStyle(i: Int?) {
-        val green = context.getColor(R.color.valid_green)
+        val green = context.getColor(R.color.mint_90)
         when (i) {
             1 -> { // valid input
                 this.isErrorEnabled = false

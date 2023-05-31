@@ -13,7 +13,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@color/grey100" />
+        android:src="@color/mint_10" />
 
     <TextView
         android:id="@+id/tv_name"

@@ -6,6 +6,7 @@ import android.content.Context
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,7 @@ import org.android.go.sopt.databinding.DialogLoadingBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 // 서버 통신
 fun <T> Call<T>.enqueueUtil(
@@ -73,4 +75,12 @@ fun Context.showToast(msg: String) {
 
 fun showSnackbar(v: View, s: String) {
     Snackbar.make(v, s, Snackbar.LENGTH_SHORT).show()
+}
+
+fun hideKeyboard(activity: Activity) {
+    val inputManager = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputManager.hideSoftInputFromWindow(
+        activity.getCurrentFocus()?.getWindowToken() ?: null,
+        InputMethodManager.HIDE_NOT_ALWAYS
+    )
 }

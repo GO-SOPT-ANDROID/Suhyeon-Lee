@@ -7,7 +7,9 @@ import org.android.go.sopt.R
 import org.android.go.sopt.databinding.ActivityJoinBinding
 import org.android.go.sopt.presentation.login.LoginActivity
 import org.android.go.sopt.util.BindingActivity
+import org.android.go.sopt.util.hideKeyboard
 import org.android.go.sopt.util.showToast
+
 
 class JoinActivity : BindingActivity<ActivityJoinBinding>(R.layout.activity_join) {
     private val joinVm by viewModels<JoinViewModel>()
@@ -20,6 +22,10 @@ class JoinActivity : BindingActivity<ActivityJoinBinding>(R.layout.activity_join
     }
 
     private fun registerClickEvents() {
+        binding.clParent.setOnTouchListener { v, event ->
+            hideKeyboard(this)
+            return@setOnTouchListener false
+        }
         binding.btnJoin.setOnClickListener {
             joinVm.validateGoingNext()
         }
@@ -66,8 +72,8 @@ class JoinActivity : BindingActivity<ActivityJoinBinding>(R.layout.activity_join
         with(binding) {
             intent.putExtra("id", etId.text.toString())
             intent.putExtra("pw", etPw.text.toString())
-            intent.putExtra("name", etName.text.toString())
-            intent.putExtra("skill", etSkill.text.toString())
+            //intent.putExtra("name", etName.text.toString())
+            //intent.putExtra("skill", etSkill.text.toString())
         }
         setResult(RESULT_OK, intent)
         finish()
