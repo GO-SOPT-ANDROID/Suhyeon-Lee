@@ -10,7 +10,7 @@
         <item name="colorSecondaryVariant">@color/pink_70</item>
         <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color -->
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@color/black_3</item>
         <item name="android:includeFontPadding">false</item>
     </style>
 </resources>

@@ -76,4 +76,7 @@ dependencies {
     // ViewModel delegate: by viewModels() 이용해 viewModel 생성
     implementation 'androidx.activity:activity-ktx:1.7.1'
     implementation 'androidx.fragment:fragment-ktx:1.5.7'
+
+    // RecyclerView-Selection <- 추가 안 해도 되나..?
+    implementation("androidx.recyclerview:recyclerview-selection:1.1.0")
 }

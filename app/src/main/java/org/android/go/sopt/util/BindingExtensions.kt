@@ -1,6 +1,9 @@
 package org.android.go.sopt.util
 
+import android.content.Context
 import android.content.res.ColorStateList
+import androidx.appcompat.widget.AppCompatButton
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.*
 import androidx.databinding.BindingAdapter
 import com.google.android.material.textfield.TextInputLayout
@@ -110,5 +113,18 @@ object BindingExtensions {
                 this.error = null
             }
         }
+    }
+
+    @JvmStatic
+    @BindingAdapter("selectItem")
+    fun ConstraintLayout.selectLayout(b: Boolean) {
+        if (b) setBackgroundColor(getColor(context, R.color.pink_20))
+        else setBackgroundColor(getColor(context, R.color.white))
+    }
+
+    @JvmStatic
+    @BindingAdapter("btnText")
+    fun AppCompatButton.setButtonText(b: Boolean) {
+        text = if (b) "Delete" else "Edit"
     }
 }
