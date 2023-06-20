@@ -1,7 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'org.jetbrains.kotlin.plugin.serialization' version '1.8.20'
+    id 'kotlin-parcelize'
+    id 'kotlinx-serialization'
+    id 'kotlin-kapt'
 }
 
 Properties properties = new Properties()
@@ -29,11 +31,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '11'
+        jvmTarget = '17'
     }
     buildFeatures {
         buildConfig true
@@ -55,9 +57,11 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
+    // Kotlin serialization
+    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1'
+
     // retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1'
     implementation 'com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0'
 
     // okhttp3
@@ -72,4 +76,7 @@ dependencies {
     // ViewModel delegate: by viewModels() 이용해 viewModel 생성
     implementation 'androidx.activity:activity-ktx:1.7.1'
     implementation 'androidx.fragment:fragment-ktx:1.5.7'
+
+    // RecyclerView-Selection <- 추가 안 해도 되나..?
+    implementation("androidx.recyclerview:recyclerview-selection:1.1.0")
 }

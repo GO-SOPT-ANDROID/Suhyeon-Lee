@@ -45,7 +45,7 @@
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                android:src="@color/grey100" />
+                android:src="@color/mint_10" />
 
             <ImageView
                 android:id="@+id/iv2"
@@ -55,7 +55,7 @@
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                android:src="@color/grey100" />
+                android:src="@color/mint_10" />
 
             <ImageView
                 android:id="@+id/iv3"
@@ -65,7 +65,7 @@
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                android:src="@color/grey100" />
+                android:src="@color/mint_10" />
 
         </LinearLayout>
 
@@ -100,7 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:backgroundTint="@color/grey300"
+            android:backgroundTint="@color/pink_50"
             android:padding="20dp"
             android:text="Click to request permission"
             android:textColor="@color/white"

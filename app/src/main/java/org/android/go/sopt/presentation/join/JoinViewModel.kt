@@ -3,19 +3,47 @@ package org.android.go.sopt.presentation.join
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
+import org.android.go.sopt.data.SrvcPool
 import org.android.go.sopt.data.model.ReqJoinDto
 import org.android.go.sopt.data.model.ResJoinDto
-import org.android.go.sopt.data.SrvcPool
 import org.android.go.sopt.util.enqueueUtil
 import org.android.go.sopt.util.showToast
 
-class JoinViewModel: ViewModel() {
+
+class JoinViewModel : ViewModel() {
+    val id: MutableLiveData<String> = MutableLiveData()
+    val pw: MutableLiveData<String> = MutableLiveData()
+    val name: MutableLiveData<String> = MutableLiveData()
+    val skill: MutableLiveData<String> = MutableLiveData()
+
+    var isIdValid: MutableLiveData<Int> = MutableLiveData()
+    var isPwValid: MutableLiveData<Int> = MutableLiveData()
+    var isNameValid: MutableLiveData<Int> = MutableLiveData()
+    var isSkillValid: MutableLiveData<Int> = MutableLiveData()
+
+    var isValid: MutableLiveData<Boolean> = MutableLiveData(false)
+    var goNext: MutableLiveData<Boolean> = MutableLiveData()
+
+    private val soptSrvc = SrvcPool.soptSrvc
     private val _joinResult: MutableLiveData<ResJoinDto> = MutableLiveData()
     val joinResult: LiveData<ResJoinDto> = _joinResult
 
-    private val soptSrvc = SrvcPool.soptSrvc
+    fun validateInputs() {
+        if (isIdValid.value == 1 && isPwValid.value == 1)
+            isValid.postValue(true)
+        else isValid.postValue(false)
+    }
+
+    fun validateGoingNext() {
+        if (isValid.value == true) {
+            goNext.value = isNameValid.value == 1 && isSkillValid.value == 1
+        }
+        else goNext.value = false
+    }
 
     fun join(context: Context, id: String, pw: String, name: String, skill: String) {
         soptSrvc.join(ReqJoinDto(id, pw, name, skill)).enqueueUtil(

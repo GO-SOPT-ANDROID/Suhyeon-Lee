@@ -18,6 +18,8 @@ class HomeViewModel : ViewModel() {
     private val _listUsersResult: MutableLiveData<List<ResUsersDto.Data>> = MutableLiveData()
     val listUsersResult: LiveData<List<ResUsersDto.Data>> = _listUsersResult
 
+    val btnDelete: MutableLiveData<Boolean> = MutableLiveData(false)
+
     fun listUsers(mainVm: MainViewModel) {
         soptSrvc.listUsers().enqueueUtil(
             { res ->
@@ -26,5 +28,9 @@ class HomeViewModel : ViewModel() {
             },
             { Log.e("ABC", "서버통신 실패(40X)") }
         )
+    }
+
+    fun clickBtnDelete() { // inverter
+        btnDelete.value = btnDelete.value != true
     }
 }

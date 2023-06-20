@@ -5,7 +5,9 @@
     tools:context=".presentation.main.home.HomeFragment">
 
     <data>
-
+        <variable
+            name="vm"
+            type="org.android.go.sopt.presentation.main.home.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,16 +16,31 @@
 
         <TextView
             android:id="@+id/tv_fragment_label"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="서버 통신을 받아 display"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_delete"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="delete"
+            app:layout_constraintStart_toEndOf="@id/tv_fragment_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_fragment_label"
+            app:layout_constraintBottom_toBottomOf="@id/tv_fragment_label"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:padding="10dp"
+            android:background="@color/pink_20"
+            app:btnText="@{vm.btnDelete}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv"

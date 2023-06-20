@@ -2,6 +2,7 @@ package org.android.go.sopt.presentation.login
 
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -15,27 +16,45 @@ import org.android.go.sopt.util.showSnackbar
 
 class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_login) {
     private val loginVm: LoginViewModel by viewModels()
+    private lateinit var sharedPreferences: SharedPreferences
 
-    private var id: String = ""
-    private var pw: String = ""
-    private var name: String = ""
-    private var skill: String = ""
+    private val resultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result: ActivityResult ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val id = result.data?.getStringExtra("id") ?: ""
+            val pw = result.data?.getStringExtra("pw") ?: ""
+            //name = result.data?.getStringExtra("name") ?: ""
+            //skill = result.data?.getStringExtra("skill") ?: ""
+            binding.etId.setText(id)
+            binding.etPw.setText(pw)
+        }
+    }
+
+    private var spId: String? = null
+    private var spPw: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        checkAutoLogin()
         with(binding) {
             btnLogin.setOnClickListener { onClickLogin() }
-            btnSignup.setOnClickListener { onClickSignUp() }
+            btnJoin.setOnClickListener { onClickSignUp() }
         }
-
         registerObserver()
     }
 
     private fun registerObserver() {
         loginVm.loginResult.observe(this) {
             val intent = Intent(this@LoginActivity, MainActivity::class.java)
+            intent.putExtra("id", it.data.id)
+            intent.putExtra("name", it.data.name)
+            intent.putExtra("skill", it.data.skill)
+            binding.etId.text = null
+            binding.etPw.text = null
             startActivity(intent)
-            finish()
+            //finish()
         }
     }
 
@@ -43,53 +62,34 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         with(binding) {
             if (etId.text.isBlank() || etPw.text.isBlank()) {
                 showSnackbar(this.root, "ID 또는 PW를 다시 확인해주세요.")
-            } else loginVm.login(applicationContext, etId.text.toString(), etPw.text.toString())
+            }
+            else {
+                spId = binding.etId.text.toString()
+                spPw = binding.etPw.text.toString()
+                if (binding.cbAutoLogin.isChecked) processAutoLogin()
+                loginVm.login(applicationContext, spId!!, spPw!!)
+            }
         }
     }
-
-    /*
-    private fun completeLogIn() {
-        logInSrvc.logIn(
-            with(binding) {
-                ReqLogInDto(
-                    etId.text.toString(), etPw.text.toString()
-                )
-            }
-        ).enqueue(object : retrofit2.Callback<ResLogInDto> {
-            override fun onResponse(call: Call<ResLogInDto>, response: Response<ResLogInDto>) {
-                if (response.body()?.status in 200..300) {
-                    response.body()?.message.let { // 서버통신 성공
-                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    }
-                } else { // 서버통신 실패(40X)
-                    Toast.makeText(applicationContext, "서버통신 실패(40X)", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onFailure(call: Call<ResLogInDto>, t: Throwable) { // 서버통신 실패(응답값 X)
-                Toast.makeText(applicationContext, "서버통신 실패(응답값 X)", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
-    */
 
     private fun onClickSignUp() {
         val intent = Intent(this, JoinActivity::class.java)
         resultLauncher.launch(intent)
     }
 
-    private val resultLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result: ActivityResult ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            id = result.data?.getStringExtra("id") ?: ""
-            pw = result.data?.getStringExtra("pw") ?: ""
-            name = result.data?.getStringExtra("name") ?: ""
-            skill = result.data?.getStringExtra("hobby") ?: ""
-            binding.etId.setText(id)
-            binding.etPw.setText(pw)
+    private fun checkAutoLogin() {
+        sharedPreferences = getSharedPreferences("sharedPreferences", Activity.MODE_PRIVATE)
+        spId = sharedPreferences.getString("id", null)
+        spPw = sharedPreferences.getString("pw", null)
+        if (spId != null && spPw != null) { // 자동 로그인이 되어 있다
+            loginVm.login(applicationContext, spId!!, spPw!!)
         }
+    }
+
+    private fun processAutoLogin() {
+        val spEditor = sharedPreferences.edit()
+        spEditor.putString("id", spId)
+        spEditor.putString("pw", spPw)
+        spEditor.commit()
     }
 }

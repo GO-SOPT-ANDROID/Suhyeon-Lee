@@ -7,47 +7,59 @@ import org.android.go.sopt.R
 import org.android.go.sopt.databinding.ActivityJoinBinding
 import org.android.go.sopt.presentation.login.LoginActivity
 import org.android.go.sopt.util.BindingActivity
-import org.android.go.sopt.util.showSnackbar
+import org.android.go.sopt.util.hideKeyboard
 import org.android.go.sopt.util.showToast
 
+
 class JoinActivity : BindingActivity<ActivityJoinBinding>(R.layout.activity_join) {
-    private val signUpVm by viewModels<JoinViewModel>()
+    private val joinVm by viewModels<JoinViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         registerClickEvents()
+        registerObserver()
     }
 
     private fun registerClickEvents() {
-        binding.btnSignup.setOnClickListener {
-            clickSignUpBtn()
+        binding.clParent.setOnTouchListener { v, event ->
+            hideKeyboard(this)
+            return@setOnTouchListener false
         }
-
-        signUpVm.joinResult.observe(this) {
-            this.showToast("회원가입 성공!")
-            goBackToLoginActivity()
-        }
-    }
-
-    private fun clickSignUpBtn() {
-        with(binding) {
-            if (etId.text.isBlank()) showSnackbar(this.root, "ID를 입력하세요.")
-            else if (etPw.text.isBlank()) showSnackbar(this.root, "PW를 입력하세요.")
-            else if (etName.text.isBlank()) showSnackbar(this.root, "이름을 입력하세요.")
-            else if (etSkill.text.isBlank()) showSnackbar(this.root, "특기를 입력하세요.")
-            else if (etId.length() < 6 || 10 < etId.length()) {
-                showSnackbar(this.root, "ID는 6~10자여야 합니다.")
-            } else if (etPw.length() < 8 || 12 < etPw.length()) {
-                showSnackbar(this.root, "PW는 8~12자여야 합니다.")
-            } else completeSignUp()
+        binding.btnJoin.setOnClickListener {
+            joinVm.validateGoingNext()
         }
     }
 
+    private fun registerObserver() {
+        binding.vm = joinVm
+        with(joinVm) {
+            // validate inputs
+            id.observe(this@JoinActivity) { isIdValid.postValue(it.validateId()) }
+            pw.observe(this@JoinActivity) { isPwValid.postValue(it.validatePw()) }
+            name.observe(this@JoinActivity) { isNameValid.postValue(it.validateEmpty()) }
+            skill.observe(this@JoinActivity) { isSkillValid.postValue(it.validateEmpty()) }
 
-    private fun completeSignUp() {
+            // validate button enableness
+            isIdValid.observe(this@JoinActivity) { validateInputs() }
+            isPwValid.observe(this@JoinActivity) { validateInputs() }
+
+            // validate moving to the next page
+            goNext.observe(this@JoinActivity) {
+                if (it == true) completeJoin()
+                else { this@JoinActivity.showToast("유효하지 않은 값이 있습니다.") }
+            }
+
+            joinResult.observe(this@JoinActivity) {
+                this@JoinActivity.showToast("회원가입 성공!")
+                goBackToLoginActivity()
+            }
+        }
+    }
+
+    private fun completeJoin() {
         with(binding) {
-            signUpVm.join(
+            joinVm.join(
                 applicationContext,
                 etId.text.toString(), etPw.text.toString(),
                 etName.text.toString(), etSkill.text.toString()
@@ -60,8 +72,8 @@ class JoinActivity : BindingActivity<ActivityJoinBinding>(R.layout.activity_join
         with(binding) {
             intent.putExtra("id", etId.text.toString())
             intent.putExtra("pw", etPw.text.toString())
-            intent.putExtra("name", etName.text.toString())
-            intent.putExtra("skill", etSkill.text.toString())
+            //intent.putExtra("name", etName.text.toString())
+            //intent.putExtra("skill", etSkill.text.toString())
         }
         setResult(RESULT_OK, intent)
         finish()
