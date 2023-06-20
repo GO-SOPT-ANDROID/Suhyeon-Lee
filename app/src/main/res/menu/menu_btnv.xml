@@ -4,20 +4,20 @@
         android:id="@+id/btnv_home"
         android:enabled="true"
         android:icon="@drawable/icn_home"
-        android:title="홈" />
+        android:title="home" />
     <item
         android:id="@+id/btnv_gallery"
         android:enabled="true"
         android:icon="@drawable/icn_gallery"
-        android:title="갤러리" />
+        android:title="user" />
     <item
         android:id="@+id/btnv_upload"
         android:enabled="true"
         android:icon="@drawable/icn_upload"
-        android:title="업로드" />
+        android:title="upload" />
     <item
         android:id="@+id/btnv_etc"
         android:enabled="true"
         android:icon="@drawable/icn_etc"
-        android:title="기타" />
+        android:title="music" />
 </menu>

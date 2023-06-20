@@ -48,6 +48,7 @@ class UploadFragment : BindingFragment<FragmentUploadBinding>(R.layout.fragment_
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.vm = uploadVm
         registerClickEvents()
     }
 
@@ -59,8 +60,13 @@ class UploadFragment : BindingFragment<FragmentUploadBinding>(R.layout.fragment_
         }
 
         binding.btnUpload.setOnClickListener {
-            mainVm.setDialogFlag(true)
-            uploadVm.uploadImg(requireContext(), mainVm)
+            //uploadVm.uploadImg(requireContext(), mainVm)
+            if (uploadVm.title.value.isNullOrEmpty() || uploadVm.singer.value.isNullOrEmpty())
+                requireContext().showToast("Please fill in the empty blanks.")
+            else {
+                mainVm.setDialogFlag(true)
+                uploadVm.uploadMusic(requireContext(), mainVm)
+            }
         }
 
         binding.btnReqPerm.setOnClickListener {

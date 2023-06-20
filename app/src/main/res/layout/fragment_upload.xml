@@ -6,6 +6,9 @@
 
     <data>
 
+        <variable
+            name="vm"
+            type="org.android.go.sopt.presentation.main.upload.UploadViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="[multipart] 갤러리에서 사진을 가져와 서버로 전송"
+            android:text="[multipart] 음악 정보를 서버로 전송"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="12sp"
@@ -83,30 +86,72 @@
             app:layout_constraintTop_toBottomOf="@id/ll_imgs" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_upload"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="@color/btnv_selected"
-            android:padding="20dp"
-            android:text="Upload Photos"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_select_photo" />
-
-        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_req_perm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:backgroundTint="@color/pink_50"
             android:padding="20dp"
             android:text="Click to request permission"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_upload" />
+            app:layout_constraintTop_toBottomOf="@id/btn_select_photo" />
+
+        <TextView
+            android:id="@+id/tv_label_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            app:layout_constraintTop_toBottomOf="@id/btn_req_perm"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"/>
+
+        <EditText
+            android:id="@+id/et_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_label_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="20dp"
+            android:text="@={vm.title}" />
+
+        <TextView
+            android:id="@+id/tv_label_singer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Singer"
+            app:layout_constraintTop_toBottomOf="@id/et_title"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"/>
+
+        <EditText
+            android:id="@+id/et_singer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_label_singer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="20dp"
+            android:text="@={vm.singer}" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_upload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/btnv_selected"
+            android:padding="20dp"
+            android:text="register this music"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_singer" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

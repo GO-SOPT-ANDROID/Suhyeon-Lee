@@ -14,11 +14,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.google.android.material.snackbar.Snackbar
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.android.go.sopt.databinding.DialogLoadingBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
 
 // 서버 통신
 fun <T> Call<T>.enqueueUtil(

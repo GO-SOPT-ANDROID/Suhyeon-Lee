@@ -63,6 +63,12 @@ class ContentUriRequestBody(
         }
     }
 
-    // 얘는 SerialName을 붙여서 이름을 명시해주지 않았죠? 여기 밑에서 이름을 정해줍니다 !
-    fun toFormData() = MultipartBody.Part.createFormData("file", getFileName(), this)
+    /*
+     * SrvcInterface.kt에서 uploadMusic() API 보면,
+     * (@Part annotation이 붙은) MultipartBody.Part 타입의 변수에는 SerialName을 명시해줄 수 없었다.
+     * @Part("image") image: MultipartBody.Part <- 이렇게 쓸 수 없다는 뜻.
+     * 그래서 아래 함수를 통해 SerialName(아래에선 'image')을 명시해준다!
+     * 해당 API의 form-data 타입의 Body보면, 한 property의 key가 image, value가 ~.png 등이겠지.
+     */
+    fun toFormData() = MultipartBody.Part.createFormData("image", getFileName(), this)
 }

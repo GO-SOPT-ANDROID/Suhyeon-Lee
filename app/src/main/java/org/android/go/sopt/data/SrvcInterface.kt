@@ -1,17 +1,21 @@
 package org.android.go.sopt.data
 
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import org.android.go.sopt.data.model.ReqLogInDto
 import org.android.go.sopt.data.model.ReqJoinDto
 import org.android.go.sopt.data.model.ResLogInDto
 import org.android.go.sopt.data.model.ResJoinDto
+import org.android.go.sopt.data.model.ResUploadMusicDto
 import org.android.go.sopt.data.model.ResUsersDto
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
+import retrofit2.http.PartMap
 
 interface SrvcInterface {
     @POST("sign-up")
@@ -32,4 +36,12 @@ interface SrvcInterface {
     fun uploadImage(
         @Part file: MultipartBody.Part,
     ): Call<Unit>
+
+    @Multipart
+    @POST("music")
+    fun uploadMusic(
+        @Header("id") id: String,
+        @Part image: MultipartBody.Part?,
+        @PartMap data: HashMap<String, RequestBody>
+    ): Call<ResUploadMusicDto>
 }
