@@ -1,16 +1,11 @@
 package org.android.go.sopt.presentation.main.upload
 
 import android.content.Context
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kotlinx.serialization.json.buildJsonObject
-import kotlinx.serialization.json.put
-import okhttp3.MediaType
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.android.go.sopt.data.SrvcPool
 import org.android.go.sopt.presentation.main.MainViewModel
@@ -22,6 +17,7 @@ class UploadViewModel : ViewModel() {
     private val soptSrvc = SrvcPool.soptSrvc
     var imgReqBodys: MutableList<ContentUriRequestBody> = mutableListOf()
 
+    var imgReqBodyList: MutableLiveData<MutableList<Uri>> = MutableLiveData(mutableListOf())
     val title: MutableLiveData<String> = MutableLiveData()
     val singer: MutableLiveData<String> = MutableLiveData()
 
@@ -87,5 +83,23 @@ class UploadViewModel : ViewModel() {
         imgReqBodys.clear()
     }
 
-    private fun String?.toPlainRequestBody() = requireNotNull(this).toRequestBody("text/plain".toMediaTypeOrNull())
+    // imgReqBodyList에 선택한 photo를 추가한다
+    fun selectPhoto(list: List<Uri>) {
+        if (list.isNotEmpty()) {
+            val curSize = imgReqBodyList.value?.size ?: 0
+            (curSize + list.size).let {
+                when {
+                    it <= 3 -> {
+
+                    }
+                    else -> {
+
+                    }
+                }
+            }
+        }
+    }
+
+    private fun String?.toPlainRequestBody() =
+        requireNotNull(this).toRequestBody("text/plain".toMediaTypeOrNull())
 }

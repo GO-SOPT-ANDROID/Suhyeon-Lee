@@ -1,7 +1,6 @@
 package org.android.go.sopt.presentation.main.upload
 
 import android.Manifest
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -37,13 +36,14 @@ class UploadFragment : BindingFragment<FragmentUploadBinding>(R.layout.fragment_
         }
 
     private val permLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
-            if (isGranted) {
-                requireContext().showToast("Permission allowed!")
-            } else {
-                requireContext().showToast("Permission denied!")
-            }
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            requireContext().showToast("Permission allowed!")
+        } else {
+            requireContext().showToast("Permission denied!")
         }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
