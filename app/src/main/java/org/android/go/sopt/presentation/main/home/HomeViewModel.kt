@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import org.android.go.sopt.data.SrvcPool
 import org.android.go.sopt.data.model.ResUsersDto
 import org.android.go.sopt.presentation.main.MainActivity
@@ -21,13 +23,19 @@ class HomeViewModel : ViewModel() {
     val btnDelete: MutableLiveData<Boolean> = MutableLiveData(false)
 
     fun listUsers(mainVm: MainViewModel) {
-        soptSrvc.listUsers().enqueueUtil(
-            { res ->
-                _listUsersResult.value = res.data
-                mainVm.setDialogFlag(false)
-            },
-            { Log.e("ABC", "서버통신 실패(40X)") }
-        )
+        viewModelScope.launch {
+            kotlin.runCatching {
+                soptSrvc.listUsers()
+            }.fold(
+                {
+                    Log.e("ABC", "[listUsers()] 서버통신 성공")
+                    _listUsersResult.value = it.data
+                    mainVm.setDialogFlag(false)
+                }, {
+                    Log.e("ABC", "[listUsers()] 서버통신 실패(40X)")
+                }
+            )
+        }
     }
 
     fun clickBtnDelete() { // inverter

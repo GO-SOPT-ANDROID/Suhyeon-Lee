@@ -29,7 +29,7 @@ interface SrvcInterface {
     ): Call<ResLogInDto>
 
     @GET("api/users?page=2")
-    fun listUsers(): Call<ResUsersDto>
+    suspend fun listUsers(): ResUsersDto
 
     @Multipart // "이 API의 ReqBody가 multi-part 형식으로 간단다"
     @POST("upload")
@@ -39,9 +39,9 @@ interface SrvcInterface {
 
     @Multipart
     @POST("music")
-    fun uploadMusic(
+    suspend fun uploadMusic(
         @Header("id") id: String,
         @Part image: MultipartBody.Part?,
         @PartMap data: HashMap<String, RequestBody>
-    ): Call<ResUploadMusicDto>
+    ): ResUploadMusicDto
 }

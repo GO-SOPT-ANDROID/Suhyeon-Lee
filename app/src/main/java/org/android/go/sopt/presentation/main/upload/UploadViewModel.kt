@@ -5,6 +5,8 @@ import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.android.go.sopt.data.SrvcPool
@@ -56,23 +58,22 @@ class UploadViewModel : ViewModel() {
             )
 
             for (i in 0 until imgReqBodys.size) {
-                soptSrvc.uploadMusic(
-                    mainVm.id,
-                    imgReqBodys[i].toFormData(),
-                    dataHashMap
-                ).enqueueUtil(
-                    {
-                        resSucCnt++
-                        if (resSucCnt == imgReqBodys.size) {
-                            initializeUi()
-                            context.showToast(it.message)
-                            mainVm.setDialogFlag(false)
+                viewModelScope.launch {
+                    kotlin.runCatching {
+                        soptSrvc.uploadMusic(mainVm.id, imgReqBodys[i].toFormData(), dataHashMap)
+                    }.fold(
+                        onSuccess = { response ->
+                            resSucCnt++
+                            if (resSucCnt == imgReqBodys.size) {
+                                initializeUi()
+                                context.showToast(response.message)
+                                mainVm.setDialogFlag(false)
+                            }
+                        }, onFailure = {
+                            context.showToast("You've failed to upload ${i}th music.")
                         }
-                    },
-                    {
-                        context.showToast("You've failed to upload ${i}th music.")
-                    }
-                )
+                    )
+                }
             }
         }
     }
