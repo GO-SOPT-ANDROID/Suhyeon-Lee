@@ -1,14 +1,11 @@
 package org.android.go.sopt.presentation.main
 
-import android.app.Activity
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import org.android.go.sopt.R
 import org.android.go.sopt.databinding.ActivityMainBinding
-import org.android.go.sopt.presentation.main.etc.EtcFragment
+import org.android.go.sopt.presentation.main.music.MusicFragment
 import org.android.go.sopt.presentation.main.gallery.GalleryFragment
 import org.android.go.sopt.presentation.main.home.HomeFragment
 import org.android.go.sopt.presentation.main.upload.UploadFragment
@@ -59,8 +56,8 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
                     this.navigateTo<UploadFragment>(fragContainerId = R.id.main_fragment_container)
                     return@setOnItemSelectedListener true
                 }
-                R.id.btnv_etc -> {
-                    this.navigateTo<EtcFragment>(fragContainerId = R.id.main_fragment_container)
+                R.id.btnv_music -> {
+                    this.navigateTo<MusicFragment>(fragContainerId = R.id.main_fragment_container)
                     return@setOnItemSelectedListener true
                 }
                 else -> return@setOnItemSelectedListener false

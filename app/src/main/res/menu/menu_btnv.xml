@@ -16,8 +16,8 @@
         android:icon="@drawable/icn_upload"
         android:title="upload" />
     <item
-        android:id="@+id/btnv_etc"
+        android:id="@+id/btnv_music"
         android:enabled="true"
-        android:icon="@drawable/icn_etc"
+        android:icon="@drawable/icn_music"
         android:title="music" />
 </menu>

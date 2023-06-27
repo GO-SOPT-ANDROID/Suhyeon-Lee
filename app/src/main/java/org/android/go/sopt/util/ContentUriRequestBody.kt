@@ -7,6 +7,7 @@ import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import okio.BufferedSink
 import okio.source
 
@@ -72,3 +73,6 @@ class ContentUriRequestBody(
      */
     fun toFormData() = MultipartBody.Part.createFormData("image", getFileName(), this)
 }
+
+fun String?.toPlainRequestBody() =
+    requireNotNull(this).toRequestBody("text/plain".toMediaTypeOrNull())

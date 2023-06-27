@@ -2,18 +2,15 @@ package org.android.go.sopt.presentation.main.upload
 
 import android.content.Context
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody.Companion.toRequestBody
 import org.android.go.sopt.data.SrvcPool
 import org.android.go.sopt.presentation.main.MainViewModel
 import org.android.go.sopt.util.ContentUriRequestBody
-import org.android.go.sopt.util.enqueueUtil
 import org.android.go.sopt.util.showToast
+import org.android.go.sopt.util.toPlainRequestBody
 
 class UploadViewModel : ViewModel() {
     private val soptSrvc = SrvcPool.soptSrvc
@@ -34,9 +31,14 @@ class UploadViewModel : ViewModel() {
             for (i in 0 until imgReqBodyList.value!!.size) {
                 viewModelScope.launch {
                     kotlin.runCatching {
-                        soptSrvc.uploadMusic(mainVm.id,
-                            ContentUriRequestBody(context, (imgReqBodyList.value)!![i]).toFormData(),
-                            dataHashMap)
+                        soptSrvc.uploadMusic(
+                            mainVm.id,
+                            ContentUriRequestBody(
+                                context,
+                                (imgReqBodyList.value)!![i]
+                            ).toFormData(),
+                            dataHashMap
+                        )
                     }.fold(
                         onSuccess = { response ->
                             resSucCnt++
@@ -72,7 +74,4 @@ class UploadViewModel : ViewModel() {
             }
         }
     }
-
-    private fun String?.toPlainRequestBody() =
-        requireNotNull(this).toRequestBody("text/plain".toMediaTypeOrNull())
 }
