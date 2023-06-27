@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import org.android.go.sopt.data.SrvcPool
 import org.android.go.sopt.presentation.main.MainViewModel
 import org.android.go.sopt.util.ContentUriRequestBody
+import org.android.go.sopt.util.UserConstants
 import org.android.go.sopt.util.showToast
 import org.android.go.sopt.util.toPlainRequestBody
 
@@ -32,7 +33,7 @@ class UploadViewModel : ViewModel() {
                 viewModelScope.launch {
                     kotlin.runCatching {
                         soptSrvc.uploadMusic(
-                            mainVm.id,
+                            UserConstants.id,
                             ContentUriRequestBody(
                                 context,
                                 (imgReqBodyList.value)!![i]

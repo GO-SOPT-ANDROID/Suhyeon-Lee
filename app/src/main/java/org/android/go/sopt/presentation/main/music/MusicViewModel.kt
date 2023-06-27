@@ -13,6 +13,7 @@ import org.android.go.sopt.data.model.ResGetMusicListDto
 import org.android.go.sopt.data.model.ResUsersDto
 import org.android.go.sopt.presentation.main.MainViewModel
 import org.android.go.sopt.util.ContentUriRequestBody
+import org.android.go.sopt.util.UserConstants
 import org.android.go.sopt.util.showToast
 import org.android.go.sopt.util.toPlainRequestBody
 
@@ -44,7 +45,7 @@ class MusicViewModel : ViewModel() {
             viewModelScope.launch {
                 kotlin.runCatching {
                     soptSrvc.uploadMusic(
-                        mainVm.id,
+                        UserConstants.id,
                         ContentUriRequestBody(context, _selImg.value!!).toFormData(),
                         hashMapOf(
                             "title" to title.value.toPlainRequestBody(),
@@ -68,7 +69,7 @@ class MusicViewModel : ViewModel() {
     fun getMusicList(context: Context, mainVm: MainViewModel) {
         viewModelScope.launch {
             kotlin.runCatching {
-                soptSrvc.getMusic(mainVm.id)
+                soptSrvc.getMusic(UserConstants.id)
             }.fold(
                 onSuccess = {
                     _musicList.value = it.data.musicList.toMutableList()

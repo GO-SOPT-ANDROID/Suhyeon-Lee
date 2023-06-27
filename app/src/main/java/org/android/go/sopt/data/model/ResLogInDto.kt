@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ResLogInDto(
     @SerialName("status")
-    val status: Int,
+    var status: Int,
     @SerialName("message")
     val message: String,
     @SerialName("data")

@@ -20,18 +20,9 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        getDataFromLogin()
         registerBtnv()
         registerObserver()
         dialog = Dialog(this)
-    }
-
-    private fun getDataFromLogin() {
-        with(mainVm) {
-            id = intent.getStringExtra("id") ?: "unknown"
-            name = intent.getStringExtra("name") ?: "unknown"
-            skill = intent.getStringExtra("skill") ?: "unknown"
-        }
     }
 
     private fun registerObserver() {

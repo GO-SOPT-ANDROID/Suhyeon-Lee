@@ -9,10 +9,6 @@ class MainViewModel : ViewModel() {
     private val _dialogFlag: MutableLiveData<Boolean> = MutableLiveData(false)
     val dialogFlag: LiveData<Boolean> = _dialogFlag
 
-    var id: String = ""
-    var name: String = ""
-    var skill: String = ""
-
     fun setDialogFlag(b: Boolean) {
         _dialogFlag.value = b
     }
