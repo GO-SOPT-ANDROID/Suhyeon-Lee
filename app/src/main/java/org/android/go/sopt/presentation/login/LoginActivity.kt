@@ -24,8 +24,6 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         if (result.resultCode == Activity.RESULT_OK) {
             val id = result.data?.getStringExtra("id") ?: ""
             val pw = result.data?.getStringExtra("pw") ?: ""
-            //name = result.data?.getStringExtra("name") ?: ""
-            //skill = result.data?.getStringExtra("skill") ?: ""
             binding.etId.setText(id)
             binding.etPw.setText(pw)
         }
@@ -53,8 +51,8 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
             intent.putExtra("skill", it.data.skill)
             binding.etId.text = null
             binding.etPw.text = null
-            startActivity(intent)
-            //finish()
+            startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
+            // finish() <- Q. 이렇게 하면 안 되남?
         }
     }
 
