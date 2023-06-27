@@ -17,38 +17,12 @@ import org.android.go.sopt.util.showToast
 
 class UploadViewModel : ViewModel() {
     private val soptSrvc = SrvcPool.soptSrvc
-    var imgReqBodys: MutableList<ContentUriRequestBody> = mutableListOf()
-
-    var imgReqBodyList: MutableLiveData<MutableList<Uri>> = MutableLiveData(mutableListOf())
+    var imgReqBodyList: MutableLiveData<List<Uri>> = MutableLiveData(listOf())
     val title: MutableLiveData<String> = MutableLiveData()
     val singer: MutableLiveData<String> = MutableLiveData()
 
-    // [세미나7] multipart 사진 전송
-    fun uploadImg(context: Context, mainVm: MainViewModel) {
-        if (imgReqBodys.size == 0)
-            context.showToast("Please select images first.")
-        else {
-            var resSucCnt = 0 // successful response의 개수
-            for (i in 0 until imgReqBodys.size) {
-                soptSrvc.uploadImage(imgReqBodys[i].toFormData()).enqueueUtil(
-                    {
-                        Log.d("ABC", "Img $i is successfully uploaded to the server.")
-                        resSucCnt++
-                        if (resSucCnt == imgReqBodys.size - 1) {
-                            context.showToast("Imgs are successfully uploaded to the server.")
-                            mainVm.setDialogFlag(false)
-                        }
-                    },
-                    {
-                        context.showToast("You've failed to upload ${i}th img")
-                    }
-                )
-            }
-        }
-    }
-
     fun uploadMusic(context: Context, mainVm: MainViewModel) {
-        if (imgReqBodys.size == 0)
+        if (imgReqBodyList.value?.size == 0)
             context.showToast("Please select images first.")
         else {
             var resSucCnt = 0 // successful response의 개수
@@ -57,14 +31,16 @@ class UploadViewModel : ViewModel() {
                 "singer" to singer.value.toPlainRequestBody()
             )
 
-            for (i in 0 until imgReqBodys.size) {
+            for (i in 0 until imgReqBodyList.value!!.size) {
                 viewModelScope.launch {
                     kotlin.runCatching {
-                        soptSrvc.uploadMusic(mainVm.id, imgReqBodys[i].toFormData(), dataHashMap)
+                        soptSrvc.uploadMusic(mainVm.id,
+                            ContentUriRequestBody(context, (imgReqBodyList.value)!![i]).toFormData(),
+                            dataHashMap)
                     }.fold(
                         onSuccess = { response ->
                             resSucCnt++
-                            if (resSucCnt == imgReqBodys.size) {
+                            if (resSucCnt == imgReqBodyList.value!!.size) {
                                 initializeUi()
                                 context.showToast(response.message)
                                 mainVm.setDialogFlag(false)
@@ -81,22 +57,18 @@ class UploadViewModel : ViewModel() {
     private fun initializeUi() {
         title.value = ""
         singer.value = ""
-        imgReqBodys.clear()
+        imgReqBodyList.value = emptyList()
     }
 
     // imgReqBodyList에 선택한 photo를 추가한다
     fun selectPhoto(list: List<Uri>) {
         if (list.isNotEmpty()) {
+            val newList = mutableListOf<Uri>()
             val curSize = imgReqBodyList.value?.size ?: 0
             (curSize + list.size).let {
-                when {
-                    it <= 3 -> {
-
-                    }
-                    else -> {
-
-                    }
-                }
+                if (it <= 3) imgReqBodyList.value?.let { prevList -> newList.addAll(prevList) }
+                newList.addAll(list)
+                imgReqBodyList.value = newList
             }
         }
     }

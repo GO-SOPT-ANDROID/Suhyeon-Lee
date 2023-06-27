@@ -8,11 +8,15 @@ import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -86,4 +90,17 @@ fun hideKeyboard(activity: Activity) {
         activity.getCurrentFocus()?.getWindowToken() ?: null,
         InputMethodManager.HIDE_NOT_ALWAYS
     )
+}
+
+fun RecyclerView.setDivider(@DrawableRes drawableRes: Int) {
+    val divider = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+    val dividerDrawableRes = ContextCompat.getDrawable(context, drawableRes)
+    if (dividerDrawableRes != null) {
+        divider.setDrawable(dividerDrawableRes)
+    }
+    addItemDecoration(divider)
+}
+
+inline fun View.onClick(crossinline onClick: () -> Unit) {
+    setOnClickListener { onClick() }
 }

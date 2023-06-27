@@ -24,15 +24,7 @@ class UploadFragment : BindingFragment<FragmentUploadBinding>(R.layout.fragment_
 
     private val getSeveralImgsLauncher =
         registerForActivityResult(ActivityResultContracts.PickMultipleVisualMedia(maxItems = 3)) {
-            for (i in 0..it.size - 1) {
-                val childView = binding.llImgs.getChildAt(i)
-                if (childView is ImageView) {
-                    Log.d("ABC", "${it[i]} in i-th image view!")
-                    childView.load(it[i])
-                }
-
-                uploadVm.imgReqBodys.add(ContentUriRequestBody(requireContext(), it[i]))
-            }
+            uploadVm.selectPhoto(it)
         }
 
     private val permLauncher = registerForActivityResult(
@@ -50,6 +42,7 @@ class UploadFragment : BindingFragment<FragmentUploadBinding>(R.layout.fragment_
 
         binding.vm = uploadVm
         registerClickEvents()
+        registerObservers()
     }
 
     private fun registerClickEvents() {
@@ -60,7 +53,6 @@ class UploadFragment : BindingFragment<FragmentUploadBinding>(R.layout.fragment_
         }
 
         binding.btnUpload.setOnClickListener {
-            //uploadVm.uploadImg(requireContext(), mainVm)
             if (uploadVm.title.value.isNullOrEmpty() || uploadVm.singer.value.isNullOrEmpty())
                 requireContext().showToast("Please fill in the empty blanks.")
             else {
@@ -71,6 +63,18 @@ class UploadFragment : BindingFragment<FragmentUploadBinding>(R.layout.fragment_
 
         binding.btnReqPerm.setOnClickListener {
             permLauncher.launch(Manifest.permission.ACCESS_COARSE_LOCATION)
+        }
+    }
+
+    private fun registerObservers() {
+        uploadVm.imgReqBodyList.observe(viewLifecycleOwner) {
+            for (i in 0 until 3) {
+                val childView = binding.llImgs.getChildAt(i)
+                if (childView is ImageView) {
+                    if (i < it.size) childView.load(it[i])
+                    else childView.setImageResource(R.color.mint_10)
+                }
+            }
         }
     }
 }
