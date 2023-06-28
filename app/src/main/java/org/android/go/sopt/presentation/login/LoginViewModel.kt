@@ -1,16 +1,14 @@
 package org.android.go.sopt.presentation.login
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import org.android.go.sopt.data.SrvcPool
 import org.android.go.sopt.data.model.ReqLogInDto
 import org.android.go.sopt.data.model.ResLogInDto
-import org.android.go.sopt.util.InputResult
+import org.android.go.sopt.util.ResultConstants
 import org.android.go.sopt.util.UserConstants
 import org.android.go.sopt.util.enqueueUtil
-import org.android.go.sopt.util.showToast
 
 class LoginViewModel : ViewModel() {
     private val _loginResponse: MutableLiveData<ResLogInDto.SignUpData> = MutableLiveData() // valid&right
@@ -30,7 +28,7 @@ class LoginViewModel : ViewModel() {
 
     fun login() {
         if (id.value.isNullOrEmpty() || pw.value.isNullOrEmpty())
-            _loginResult.value = InputResult.INVALID
+            _loginResult.value = ResultConstants.INVALID
         else {
             soptSrvc.logIn(ReqLogInDto(id.value!!, pw.value!!)).enqueueUtil({ response ->
                 UserConstants.id = response.data.id
@@ -38,7 +36,7 @@ class LoginViewModel : ViewModel() {
                 UserConstants.skill = response.data.skill
                 _loginResponse.value = response.data
             }, {
-                _loginResult.value = InputResult.WRONG
+                _loginResult.value = ResultConstants.WRONG
             })
         }
     }

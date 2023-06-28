@@ -20,10 +20,10 @@ import retrofit2.http.PartMap
 import retrofit2.http.Path
 
 interface SrvcInterface {
-    @POST("sign-up")
-    fun join(
+    @POST("sign-up") // 회원가입
+    suspend fun join(
         @Body req: ReqJoinDto
-    ): Call<ResJoinDto>
+    ): ResJoinDto
 
     @POST("sign-in")
     fun logIn(

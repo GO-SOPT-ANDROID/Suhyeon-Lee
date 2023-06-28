@@ -1,6 +1,5 @@
 package org.android.go.sopt.util
 
-import android.content.Context
 import android.content.res.ColorStateList
 import androidx.appcompat.widget.AppCompatButton
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -8,7 +7,6 @@ import androidx.core.content.ContextCompat.*
 import androidx.databinding.BindingAdapter
 import com.google.android.material.textfield.TextInputLayout
 import org.android.go.sopt.R
-import org.android.go.sopt.util.BindingExtensions.setNameText
 
 
 object BindingExtensions {
@@ -16,7 +14,7 @@ object BindingExtensions {
     @BindingAdapter("inputStyle")
     fun TextInputLayout.setInputStyle(i: Int?) {
         val green = context.getColor(R.color.mint_90)
-        if (i == null || i <= InputResult.INVALID) // empty, invalid
+        if (i == null || i <= ResultConstants.INVALID) // empty, invalid
             this.isErrorEnabled = true
         else { // valid
             this.isErrorEnabled = false
@@ -52,11 +50,11 @@ object BindingExtensions {
                 this.hint = "아이디를 입력해주세요."
                 this.error = null
             }
-            InputResult.EMPTY -> { // empty
+            ResultConstants.EMPTY -> { // empty
                 this.hint = "유효한 아이디를 입력해주세요."
                 this.error = "아이디가 비어있어요."
             }
-            InputResult.INVALID -> { // invalid
+            ResultConstants.INVALID -> { // invalid
                 this.hint = "유효한 아이디를 입력해주세요."
                 this.error = "조건: 영어, 숫자가 포함된 6~10자"
             }
@@ -94,11 +92,11 @@ object BindingExtensions {
                 this.hint = "비밀번호를 입력해주세요."
                 this.error = null
             }
-            InputResult.EMPTY -> { // empty
+            ResultConstants.EMPTY -> { // empty
                 this.hint = "유효한 비밀번호를 입력해주세요."
                 this.error = "비밀번호가 비어있어요."
             }
-            InputResult.INVALID -> { // invalid
+            ResultConstants.INVALID -> { // invalid
                 this.hint = "유효한 비밀번호를 입력해주세요."
                 this.error = "조건: 영문, 숫자, 특수문자가 포함된 6~12자"
             }
@@ -136,7 +134,7 @@ object BindingExtensions {
             this.error = null
         }
         else {
-            if (i >= InputResult.WRONG) { // valid
+            if (i >= ResultConstants.WRONG) { // valid
                 this.hint = "이름이 입력되었습니다."
                 this.error = null
             }
@@ -170,7 +168,7 @@ object BindingExtensions {
             this.error = null
         }
         else {
-            if (i >= InputResult.WRONG) { // valid
+            if (i >= ResultConstants.WRONG) { // valid
                 this.hint = "특기가 입력되었습니다."
                 this.error = null
             }

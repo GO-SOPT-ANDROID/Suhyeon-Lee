@@ -3,9 +3,7 @@ package org.android.go.sopt.presentation.login
 import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -14,7 +12,7 @@ import org.android.go.sopt.databinding.ActivityLoginBinding
 import org.android.go.sopt.presentation.join.JoinActivity
 import org.android.go.sopt.presentation.main.MainActivity
 import org.android.go.sopt.util.BindingActivity
-import org.android.go.sopt.util.InputResult
+import org.android.go.sopt.util.ResultConstants
 import org.android.go.sopt.util.UserConstants
 import org.android.go.sopt.util.showLoadingDialog
 import org.android.go.sopt.util.showSnackbar
@@ -63,8 +61,8 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         loginVm.loginResult.observe(this) {
             loginVm.setDialogFlag(false)
             when (it) {
-                InputResult.INVALID -> showSnackbar(binding.root, "ID 또는 PW가 비어있습니다.")
-                InputResult.WRONG -> this.showToast("로그인 정보가 존재하지 않습니다. 회원가입을 해주세요.")
+                ResultConstants.INVALID -> showSnackbar(binding.root, "ID 또는 PW가 비어있습니다.")
+                ResultConstants.WRONG -> this.showToast("로그인 정보가 존재하지 않습니다. 회원가입을 해주세요.")
             }
         }
 
