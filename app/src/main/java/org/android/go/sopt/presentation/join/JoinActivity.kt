@@ -2,6 +2,7 @@ package org.android.go.sopt.presentation.join
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import org.android.go.sopt.R
 import org.android.go.sopt.databinding.ActivityJoinBinding
@@ -41,13 +42,19 @@ class JoinActivity : BindingActivity<ActivityJoinBinding>(R.layout.activity_join
             skill.observe(this@JoinActivity) { isSkillValid.postValue(it.validateEmpty()) }
 
             // validate button enableness
-            isIdValid.observe(this@JoinActivity) { validateInputs() }
-            isPwValid.observe(this@JoinActivity) { validateInputs() }
+            isIdValid.observe(this@JoinActivity) {
+                Log.e("ABC", "[observer] isIdValid : $it")
+                validateInputs() }
+            isPwValid.observe(this@JoinActivity) {
+                Log.e("ABC", "[observer] isPwValid : $it")
+                validateInputs() }
 
             // validate moving to the next page
             goNext.observe(this@JoinActivity) {
                 if (it == true) completeJoin()
-                else { this@JoinActivity.showToast("유효하지 않은 값이 있습니다.") }
+                else {
+                    this@JoinActivity.showToast("유효하지 않은 값이 있습니다.")
+                }
             }
 
             joinResult.observe(this@JoinActivity) {
@@ -72,8 +79,6 @@ class JoinActivity : BindingActivity<ActivityJoinBinding>(R.layout.activity_join
         with(binding) {
             intent.putExtra("id", etId.text.toString())
             intent.putExtra("pw", etPw.text.toString())
-            //intent.putExtra("name", etName.text.toString())
-            //intent.putExtra("skill", etSkill.text.toString())
         }
         setResult(RESULT_OK, intent)
         finish()

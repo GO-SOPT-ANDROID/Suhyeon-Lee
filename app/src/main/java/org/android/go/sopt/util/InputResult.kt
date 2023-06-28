@@ -1,8 +1,8 @@
 package org.android.go.sopt.util
 
 object InputResult {
-    val EMPTY: Int = -2
-    val INVALID: Int = -1
-    val CORRECT: Int = 0
-    val WRONG: Int = 1
+    const val EMPTY: Int = -2
+    const val INVALID: Int = -1
+    const val WRONG: Int = 0 // valid but wrong
+    const val RIGHT: Int = 1 // valid and right
 }

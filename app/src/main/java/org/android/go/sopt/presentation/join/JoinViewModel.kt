@@ -10,9 +10,9 @@ import androidx.lifecycle.map
 import org.android.go.sopt.data.SrvcPool
 import org.android.go.sopt.data.model.ReqJoinDto
 import org.android.go.sopt.data.model.ResJoinDto
+import org.android.go.sopt.util.InputResult
 import org.android.go.sopt.util.enqueueUtil
 import org.android.go.sopt.util.showToast
-
 
 class JoinViewModel : ViewModel() {
     val id: MutableLiveData<String> = MutableLiveData()
@@ -33,14 +33,19 @@ class JoinViewModel : ViewModel() {
     val joinResult: LiveData<ResJoinDto> = _joinResult
 
     fun validateInputs() {
-        if (isIdValid.value == 1 && isPwValid.value == 1)
-            isValid.postValue(true)
-        else isValid.postValue(false)
+        Log.e("ABC", "[validateInputs()] ${isIdValid.value} / ${isPwValid.value}")
+        if (isIdValid.value == null || isPwValid.value == null) isValid.postValue(false)
+        else {
+            if (isIdValid.value!! >= InputResult.WRONG && isPwValid.value!! >= InputResult.WRONG)
+                isValid.postValue(true)
+            else isValid.postValue(false)
+        }
     }
 
     fun validateGoingNext() {
         if (isValid.value == true) {
-            goNext.value = isNameValid.value == 1 && isSkillValid.value == 1
+            goNext.value = (isNameValid.value!! >= InputResult.WRONG
+                    && isSkillValid.value!! >= InputResult.WRONG)
         }
         else goNext.value = false
     }

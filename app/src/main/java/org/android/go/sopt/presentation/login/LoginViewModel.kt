@@ -13,10 +13,10 @@ import org.android.go.sopt.util.enqueueUtil
 import org.android.go.sopt.util.showToast
 
 class LoginViewModel : ViewModel() {
-    private val _loginResponse: MutableLiveData<ResLogInDto.SignUpData> = MutableLiveData()
+    private val _loginResponse: MutableLiveData<ResLogInDto.SignUpData> = MutableLiveData() // valid&right
     val loginResponse: LiveData<ResLogInDto.SignUpData> = _loginResponse
 
-    private val _loginResult: MutableLiveData<Int> = MutableLiveData() // invalid, valid&wrong, valid&right
+    private val _loginResult: MutableLiveData<Int> = MutableLiveData() // invalid, valid&wrong
     val loginResult: LiveData<Int> = _loginResult
 
     private val soptSrvc = SrvcPool.soptSrvc
