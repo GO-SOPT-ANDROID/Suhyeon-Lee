@@ -8,12 +8,14 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import org.android.go.sopt.R
+import org.android.go.sopt.data.model.ReqLogInDto
 import org.android.go.sopt.databinding.ActivityLoginBinding
 import org.android.go.sopt.presentation.join.JoinActivity
 import org.android.go.sopt.presentation.main.MainActivity
 import org.android.go.sopt.util.BindingActivity
 import org.android.go.sopt.util.ResultConstants
 import org.android.go.sopt.util.UserConstants
+import org.android.go.sopt.util.parcelable
 import org.android.go.sopt.util.showLoadingDialog
 import org.android.go.sopt.util.showSnackbar
 import org.android.go.sopt.util.showToast
@@ -28,10 +30,9 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         ActivityResultContracts.StartActivityForResult()
     ) { result: ActivityResult ->
         if (result.resultCode == Activity.RESULT_OK) {
-            val id = result.data?.getStringExtra("id") ?: ""
-            val pw = result.data?.getStringExtra("pw") ?: ""
-            loginVm.setIdEt(id)
-            loginVm.setPwEt(pw)
+            val userData = result.data ?: return@registerForActivityResult
+            val userInfo = userData.parcelable("data") ?: ReqLogInDto()
+            loginVm.setIdAndPw(userInfo.id, userInfo.password)
         }
     }
 
@@ -95,8 +96,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         if (savedId != null && savedPw != null) { // 자동 로그인이 되어 있다
             with(loginVm) {
                 binding.cbAutoLogin.isChecked = true
-                setIdEt(savedId!!)
-                setPwEt(savedPw!!)
+                setIdAndPw(savedId!!, savedPw!!)
                 UserConstants.savedId = savedId as String
                 login()
             }

@@ -8,7 +8,6 @@ import androidx.databinding.BindingAdapter
 import com.google.android.material.textfield.TextInputLayout
 import org.android.go.sopt.R
 
-
 object BindingExtensions {
     @JvmStatic
     @BindingAdapter("inputStyle")
@@ -22,24 +21,10 @@ object BindingExtensions {
                 arrayOf(intArrayOf(android.R.attr.state_focused), intArrayOf()),
                 intArrayOf(green, green)
             )
-            defaultHintTextColor = colorStateList // change hint text style for both states(collapsed & expanded)
+            defaultHintTextColor =
+                colorStateList // change hint text style for both states(collapsed & expanded)
             this.setBoxStrokeColorStateList(colorStateList)
         }
-        /*
-        when (i) {
-            1 -> { // valid input
-                this.isErrorEnabled = false
-                val colorStateList = ColorStateList(
-                    arrayOf(intArrayOf(android.R.attr.state_focused), intArrayOf()),
-                    intArrayOf(green, green)
-                )
-                defaultHintTextColor = colorStateList // change hint text style for both states(collapsed & expanded)
-                this.setBoxStrokeColorStateList(colorStateList)
-            }
-            else -> { // empty, invalid input
-                this.isErrorEnabled = true
-            }
-        }*/
     }
 
     @JvmStatic
@@ -50,38 +35,22 @@ object BindingExtensions {
                 this.hint = "아이디를 입력해주세요."
                 this.error = null
             }
+
             ResultConstants.EMPTY -> { // empty
                 this.hint = "유효한 아이디를 입력해주세요."
                 this.error = "아이디가 비어있어요."
             }
+
             ResultConstants.INVALID -> { // invalid
                 this.hint = "유효한 아이디를 입력해주세요."
                 this.error = "조건: 영어, 숫자가 포함된 6~10자"
             }
+
             else -> { // valid
                 this.hint = "올바른 아이디입니다."
                 this.error = null
             }
         }
-        /*
-        when (i) {
-            null -> { // just focused
-                this.hint = "아이디를 입력해주세요."
-                this.error = null
-            }
-            0 -> { // empty
-                this.hint = "유효한 아이디를 입력해주세요."
-                this.error = "아이디가 비어있어요."
-            }
-            1 -> { // valid
-                this.hint = "올바른 아이디입니다."
-                this.error = null
-            }
-            else -> { // invalid
-                this.hint = "유효한 아이디를 입력해주세요."
-                this.error = "조건: 영어, 숫자가 포함된 6~10자"
-            }
-        }*/
     }
 
     @JvmStatic
@@ -92,38 +61,22 @@ object BindingExtensions {
                 this.hint = "비밀번호를 입력해주세요."
                 this.error = null
             }
+
             ResultConstants.EMPTY -> { // empty
                 this.hint = "유효한 비밀번호를 입력해주세요."
                 this.error = "비밀번호가 비어있어요."
             }
+
             ResultConstants.INVALID -> { // invalid
                 this.hint = "유효한 비밀번호를 입력해주세요."
                 this.error = "조건: 영문, 숫자, 특수문자가 포함된 6~12자"
             }
+
             else -> { // valid
                 this.hint = "올바른 비밀번호입니다."
                 this.error = null
             }
         }
-        /*
-        when (i) {
-            null -> { // just focused
-                this.hint = "비밀번호를 입력해주세요."
-                this.error = null
-            }
-            0 -> { // empty
-                this.hint = "유효한 비밀번호를 입력해주세요."
-                this.error = "비밀번호가 비어있어요."
-            }
-            1 -> { // valid
-                this.hint = "올바른 비밀번호입니다."
-                this.error = null
-            }
-            else -> { // invalid
-                this.hint = "유효한 비밀번호를 입력해주세요."
-                this.error = "조건: 영문, 숫자, 특수문자가 포함된 6~12자"
-            }
-        }*/
     }
 
     @JvmStatic
@@ -132,32 +85,15 @@ object BindingExtensions {
         if (i == null) { // just focused
             this.hint = "이름을 입력해주세요."
             this.error = null
-        }
-        else {
+        } else {
             if (i >= ResultConstants.WRONG) { // valid
                 this.hint = "이름이 입력되었습니다."
                 this.error = null
-            }
-            else { // empty == invalid
+            } else { // empty == invalid
                 this.hint = "이름을 입력해주세요."
                 this.error = "이름이 비어있어요."
             }
         }
-        /*
-        when (i) {
-            null -> { // just focused
-                this.hint = "이름을 입력해주세요."
-                this.error = null
-            }
-            0 -> { // empty
-                this.hint = "이름을 입력해주세요."
-                this.error = "이름이 비어있어요."
-            }
-            1 -> { // valid
-                this.hint = "이름이 입력되었습니다."
-                this.error = null
-            }
-        }*/
     }
 
     @JvmStatic
@@ -166,32 +102,15 @@ object BindingExtensions {
         if (i == null) { // just focused
             this.hint = "특기를 입력해주세요."
             this.error = null
-        }
-        else {
+        } else {
             if (i >= ResultConstants.WRONG) { // valid
                 this.hint = "특기가 입력되었습니다."
                 this.error = null
-            }
-            else { // empty == invalid
+            } else { // empty == invalid
                 this.hint = "특기를 입력해주세요."
                 this.error = "특기가 비어있어요."
             }
         }
-        /*
-        when (i) {
-            null -> { // just focused
-                this.hint = "특기를 입력해주세요."
-                this.error = null
-            }
-            0 -> { // empty
-                this.hint = "특기를 입력해주세요."
-                this.error = "특기가 비어있어요."
-            }
-            1 -> { // valid
-                this.hint = "특기가 입력되었습니다."
-                this.error = null
-            }
-        }*/
     }
 
     @JvmStatic

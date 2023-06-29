@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import org.android.go.sopt.R
+import org.android.go.sopt.data.model.ReqLogInDto
 import org.android.go.sopt.databinding.ActivityJoinBinding
 import org.android.go.sopt.presentation.login.LoginActivity
 import org.android.go.sopt.util.BindingActivity
@@ -48,11 +49,14 @@ class JoinActivity : BindingActivity<ActivityJoinBinding>(R.layout.activity_join
     }
 
     private fun goBackToLoginActivity() {
-        val intent = Intent(this@JoinActivity, LoginActivity::class.java)
+        val intent = Intent(this@JoinActivity, LoginActivity::class.java).apply {
+            putExtra("data", ReqLogInDto(joinVm.id.value!!, joinVm.pw.value!!))
+        }
+        /*
         with(binding) {
             intent.putExtra("id", etId.text.toString())
             intent.putExtra("pw", etPw.text.toString())
-        }
+        }*/
         setResult(RESULT_OK, intent)
         finish()
     }

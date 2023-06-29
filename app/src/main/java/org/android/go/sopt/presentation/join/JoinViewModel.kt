@@ -21,13 +21,13 @@ class JoinViewModel : ViewModel() {
     val skill: MutableLiveData<String> = MutableLiveData()
 
     // input for BindingAdapter (error), validate input
-    var isIdValid: LiveData<Int> = id.switchMap { MutableLiveData(it.validateId()) }
-    var isPwValid: LiveData<Int> = pw.switchMap { MutableLiveData(it.validatePw()) }
-    var isNameValid: LiveData<Int> = name.switchMap { MutableLiveData(it.validateEmpty()) }
-    var isSkillValid: LiveData<Int> = skill.switchMap { MutableLiveData(it.validateEmpty()) }
+    val isIdValid: LiveData<Int> = id.switchMap { MutableLiveData(it.validateId()) }
+    val isPwValid: LiveData<Int> = pw.switchMap { MutableLiveData(it.validatePw()) }
+    val isNameValid: LiveData<Int> = name.switchMap { MutableLiveData(it.validateEmpty()) }
+    val isSkillValid: LiveData<Int> = skill.switchMap { MutableLiveData(it.validateEmpty()) }
 
     // activate button
-    var isValid: MediatorLiveData<Boolean> = MediatorLiveData(false)
+    val isValid: MediatorLiveData<Boolean> = MediatorLiveData(false)
 
     private val soptSrvc = SrvcPool.soptSrvc
     private val _joinResult: MutableLiveData<ResJoinDto> = MutableLiveData()

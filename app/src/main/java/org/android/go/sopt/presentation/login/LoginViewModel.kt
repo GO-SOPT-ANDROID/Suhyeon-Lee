@@ -42,6 +42,8 @@ class LoginViewModel : ViewModel() {
     }
 
     fun setDialogFlag(b: Boolean) { _dialogFlag.value = b }
-    fun setIdEt(s: String) { id.value = s }
-    fun setPwEt(s: String) { pw.value = s }
+    fun setIdAndPw(pId: String, pPw: String) {
+        id.value = pId
+        pw.value = pPw
+    }
 }
